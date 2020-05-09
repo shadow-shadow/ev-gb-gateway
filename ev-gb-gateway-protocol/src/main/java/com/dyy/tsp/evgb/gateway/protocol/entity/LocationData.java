@@ -1,9 +1,9 @@
 package com.dyy.tsp.evgb.gateway.protocol.entity;
 
 import com.dyy.tsp.common.exception.BusinessException;
+import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.*;
-import com.dyy.tsp.evgb.gateway.protocol.util.ByteUtil;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

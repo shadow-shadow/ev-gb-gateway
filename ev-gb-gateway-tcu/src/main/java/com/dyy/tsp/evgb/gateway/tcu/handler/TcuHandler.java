@@ -6,8 +6,8 @@ import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.evgb.gateway.tcu.config.TcuProperties;
-import com.dyy.tsp.evgb.gateway.tcu.netty.TcuChannel;
 import com.dyy.tsp.evgb.gateway.tcu.vo.*;
+import com.dyy.tsp.netty.common.ChannelEnum;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(vehicleLoginVo.getVin());
         protocol.setBody(new DataBody(vehicleLoginVo.encode()));
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",vehicleLoginVo.getVin(),protocol.getCommandType().getDesc());
     }
 
@@ -49,7 +49,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(vehicleLogoutVo.getVin());
         protocol.setBody(new DataBody(vehicleLogoutVo.encode()));
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",vehicleLogoutVo.getVin(),protocol.getCommandType().getDesc());
     }
 
@@ -59,7 +59,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(platformLoginVo.getVin());
         protocol.setBody(new DataBody(platformLoginVo.encode()));
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",platformLoginVo.getVin(),protocol.getCommandType().getDesc());
     }
 
@@ -69,7 +69,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(platformLogoutVo.getVin());
         protocol.setBody(new DataBody(platformLogoutVo.encode()));
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",platformLogoutVo.getVin(),protocol.getCommandType().getDesc());
     }
 
@@ -79,7 +79,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(realTimeDataVo.getVin());
         protocol.setBody(new DataBody(realTimeDataVo.encode()));
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",realTimeDataVo.getVin(),protocol.getCommandType().getDesc());
     }
 
@@ -89,7 +89,7 @@ public class TcuHandler {
         protocol.setResponseType(ResponseType.COMMAND);
         protocol.setVin(vin);
         protocol.setBody(null);
-        TcuChannel.INSTANCE.getChannelHandlerContext().channel().writeAndFlush(protocol.encode());
+        ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
         LOGGER.debug("{} {}",vin,protocol.getCommandType().getDesc());
     }
 }

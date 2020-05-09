@@ -6,6 +6,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.evgb.gateway.tcu.config.TcuProperties;
 import com.dyy.tsp.evgb.gateway.tcu.handler.BusinessHandler;
+import com.dyy.tsp.netty.common.ChannelEnum;
 import com.dyy.tsp.netty.common.IProtocol;
 import com.dyy.tsp.netty.tcp.handler.AbstractNettyHandler;
 import io.netty.buffer.ByteBuf;
@@ -43,7 +44,7 @@ public class TcuNettyHandler extends AbstractNettyHandler {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        TcuChannel.INSTANCE.setChannelHandlerContext(ctx);
+        ChannelEnum.INSTANCE.setChannel(ctx.channel());
         LOGGER.debug("server ip[{}] connected succeed",ctx.channel().remoteAddress().toString());
         super.channelActive(ctx);
     }

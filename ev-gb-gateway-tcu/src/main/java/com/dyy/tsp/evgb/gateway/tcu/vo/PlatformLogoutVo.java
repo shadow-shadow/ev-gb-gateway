@@ -1,20 +1,13 @@
 package com.dyy.tsp.evgb.gateway.tcu.vo;
 
 import com.dyy.tsp.evgb.gateway.protocol.entity.PlatformLogout;
+import lombok.Data;
 
 /**
  * 平台登出
  */
-@SuppressWarnings("all")
+@Data
 public class PlatformLogoutVo  extends PlatformLogout {
 
     private String vin;
-
-    public String getVin() {
-        return vin;
-    }
-
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
 }

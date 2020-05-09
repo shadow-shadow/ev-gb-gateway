@@ -69,7 +69,7 @@ public enum TcuCoreType {
 
     public static TcuCoreType valuesOf(Short id) {
         for (TcuCoreType enums : TcuCoreType.values()) {
-            if (enums.getId()==id) {
+            if (enums.getId()==id.shortValue()) {
                 return enums;
             }
         }
