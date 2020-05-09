@@ -40,7 +40,9 @@ public class TcuHandler {
         protocol.setVin(vehicleLoginVo.getVin());
         protocol.setBody(new DataBody(vehicleLoginVo.encode()));
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",vehicleLoginVo.getVin(),protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",vehicleLoginVo.getVin(),protocol.getCommandType().getDesc());
+        }
     }
 
     public void vehicleLogout(VehicleLogoutVo vehicleLogoutVo) {
@@ -50,7 +52,9 @@ public class TcuHandler {
         protocol.setVin(vehicleLogoutVo.getVin());
         protocol.setBody(new DataBody(vehicleLogoutVo.encode()));
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",vehicleLogoutVo.getVin(),protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",vehicleLogoutVo.getVin(),protocol.getCommandType().getDesc());
+        }
     }
 
     public void platformLogin(PlatformLoginVo platformLoginVo) {
@@ -60,7 +64,9 @@ public class TcuHandler {
         protocol.setVin(platformLoginVo.getVin());
         protocol.setBody(new DataBody(platformLoginVo.encode()));
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",platformLoginVo.getVin(),protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",platformLoginVo.getVin(),protocol.getCommandType().getDesc());
+        }
     }
 
     public void platformLogout(PlatformLogoutVo platformLogoutVo) {
@@ -70,7 +76,9 @@ public class TcuHandler {
         protocol.setVin(platformLogoutVo.getVin());
         protocol.setBody(new DataBody(platformLogoutVo.encode()));
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",platformLogoutVo.getVin(),protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",platformLogoutVo.getVin(),protocol.getCommandType().getDesc());
+        }
     }
 
     public void realtimeData(RealTimeDataVo realTimeDataVo) {
@@ -80,7 +88,9 @@ public class TcuHandler {
         protocol.setVin(realTimeDataVo.getVin());
         protocol.setBody(new DataBody(realTimeDataVo.encode()));
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",realTimeDataVo.getVin(),protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",realTimeDataVo.getVin(),protocol.getCommandType().getDesc());
+        }
     }
 
     public void checkTime(String vin) {
@@ -90,6 +100,8 @@ public class TcuHandler {
         protocol.setVin(vin);
         protocol.setBody(null);
         ChannelEnum.INSTANCE.getChannel().writeAndFlush(protocol.encode());
-        LOGGER.debug("{} {}",vin,protocol.getCommandType().getDesc());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("{} {}",vin,protocol.getCommandType().getDesc());
+        }
     }
 }

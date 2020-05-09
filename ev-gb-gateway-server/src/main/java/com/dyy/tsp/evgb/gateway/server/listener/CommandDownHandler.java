@@ -29,16 +29,26 @@ public class CommandDownHandler {
      * @param message
      */
     public void doBusiness(String message,String topic){
-        LOGGER.debug("receive command request {}",message);
+        boolean debugEnabled = LOGGER.isDebugEnabled();
+        if(debugEnabled){
+            LOGGER.debug("receive command request {}",message);
+        }
         CommandDownRequest request = JSONObject.parseObject(message, CommandDownRequest.class);
         if(CommandDownHelperType.CLOSE_DEBUG.name().equals(request.getCommand())){
             CommonCache.debugVinMap.remove(request.getVin());
-            LOGGER.debug("{} webSocket console close",request.getVin());
+            if(debugEnabled){
+                LOGGER.debug("{} webSocket console close",request.getVin());
+            }
         }else if(CommandDownHelperType.OPEN_DEBUG.name().equals(request.getCommand())){
             CommonCache.debugVinMap.put(request.getVin(),request.getCommand());
-            LOGGER.debug("{} webSocket console open",request.getVin());
+            if(debugEnabled){
+                LOGGER.debug("{} webSocket console open",request.getVin());
+            }
         }else if(CommandDownHelperType.CLEAR_CAHCE.name().equals(request.getCommand())){
             CommonCache.vehicleCacheMap.remove(HelperKeyUtil.getKey(request.getVin()));
+            if(debugEnabled){
+                LOGGER.debug("{} clear cache",request.getVin());
+            }
         }else {
             Channel channel = CommonCache.vinChannelMap.get(request.getVin());
             this.sendCommand(channel,request);

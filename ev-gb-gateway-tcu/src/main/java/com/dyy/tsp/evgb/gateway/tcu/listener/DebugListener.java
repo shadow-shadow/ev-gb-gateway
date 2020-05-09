@@ -26,7 +26,7 @@ public class DebugListener {
 
     @KafkaListener(topics = "${spring.kafka.consumer.topic}")
     public void listen(String message) {
-        TaskPool.getInstance().submit(()->{
+        TaskPool.getInstance().execute(()->{
             EvGBProtocol protocol = JSONObject.parseObject(message, EvGBProtocol.class);
             debugWebSocketHandler.sendMessage(message,protocol.getVin());
         });

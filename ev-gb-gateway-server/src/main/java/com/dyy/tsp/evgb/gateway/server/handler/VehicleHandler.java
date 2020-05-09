@@ -64,15 +64,15 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLoginTime(vehicleLogin.getBeanTime().formatTime());
         vehicleCache.setLastLoginSerialNum(vehicleLogin.getSerialNum());
         vehicleCache.setLogin(Boolean.TRUE);
-        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.BOOT_DEMO, RedisOperation.SET, redisKey,JSONObject.toJSONString(vehicleCache));
+        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.SING_AND_TOKEN, RedisOperation.SET, redisKey,JSONObject.toJSONString(vehicleCache));
         FutureTask<String> callableTask = new FutureTask<>(asynRedisCallable);
-        TaskPool.getInstance().submit(callableTask);
+        TaskPool.getInstance().execute(callableTask);
         try {
             callableTask.get(1, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
-            LOGGER.error("{} 异步获取缓存超时",redisKey);
+            LOGGER.error("{} 异步设置缓存超时",redisKey);
         } catch (Exception e){
-            LOGGER.error(redisKey+"异步获取缓存错误:",e);
+            LOGGER.error(redisKey+"异步设置缓存错误:",e);
         }
         CommonCache.vehicleCacheMap.put(redisKey,vehicleCache);
         CommonCache.vinChannelMap.put(protrocol.getVin(),channel);
@@ -93,15 +93,15 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLogoutTime(vehicleLogout.getBeanTime().formatTime());
         vehicleCache.setLastLogoutSerialNum(vehicleLogout.getSerialNum());
         vehicleCache.setLogin(Boolean.FALSE);
-        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.BOOT_DEMO, RedisOperation.SET, redisKey,JSONObject.toJSONString(vehicleCache));
+        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.SING_AND_TOKEN, RedisOperation.SET, redisKey,JSONObject.toJSONString(vehicleCache));
         FutureTask<String> callableTask = new FutureTask<>(asynRedisCallable);
-        TaskPool.getInstance().submit(callableTask);
+        TaskPool.getInstance().execute(callableTask);
         try {
             callableTask.get(1, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
-            LOGGER.error("{} 异步获取缓存超时",redisKey);
+            LOGGER.error("{} 异步设置缓存超时",redisKey);
         } catch (Exception e){
-            LOGGER.error(redisKey+"异步获取缓存错误:",e);
+            LOGGER.error(redisKey+"异步设置缓存错误:",e);
         }
         CommonCache.vehicleCacheMap.remove(redisKey);
         CommonCache.vinChannelMap.remove(protrocol.getVin());

@@ -48,7 +48,9 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
         if(gatewayCoreType.getHandler()!=null){
             String key = HelperKeyUtil.getKey(protocol.getVin());
             VehicleCache vehicleCache = this.findVehicleCache(key);
-            if(protocol.getCommandType()!= CommandType.PLATFORM_LOGIN){//平台登入,VIN规则不一样,不做校验
+            CommandType commandType = protocol.getCommandType();
+            //平台登入/登出,VIN规则不一样,不做校验
+            if(!(commandType == CommandType.PLATFORM_LOGIN || commandType == CommandType.PLATFORM_LOGOUT)){
                 if(vehicleCache == null){
                     LOGGER.warn("{} is not platform vehicle",protocol.getVin());
                     return;
@@ -56,7 +58,9 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
             }
             protocol.setVehicleCache(vehicleCache);
             IHandler handler = (IHandler) applicationContext.getBean(gatewayCoreType.getHandler());
-            handler.doBusiness(protocol,channel);
+            if(handler != null){
+                handler.doBusiness(protocol,channel);
+            }
         }
     }
 
@@ -70,9 +74,9 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
         if(vehicleCache!=null){
             return vehicleCache;
         }
-        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.BOOT_DEMO, RedisOperation.GET, key);
+        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.SING_AND_TOKEN, RedisOperation.GET, key);
         FutureTask<String> callableTask = new FutureTask<>(asynRedisCallable);
-        TaskPool.getInstance().submit(callableTask);
+        TaskPool.getInstance().execute(callableTask);
         String cacheData = null;
         try {
             cacheData = callableTask.get(1, TimeUnit.SECONDS);

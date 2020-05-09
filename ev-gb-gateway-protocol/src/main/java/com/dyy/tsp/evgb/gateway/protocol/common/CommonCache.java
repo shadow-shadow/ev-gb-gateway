@@ -17,17 +17,17 @@ public class CommonCache {
     /**
      * 车架号作为key Channel作为Value
      */
-    public static Map<String, Channel> vinChannelMap = new ConcurrentHashMap<>();
+    public static Map<String, Channel> vinChannelMap = new ConcurrentHashMap<>(5000);
 
     /**
      * Channel作为key 车架号作为value
      */
-    public static Map<Channel,String> channelVinMap = new ConcurrentHashMap<>();
+    public static Map<Channel,String> channelVinMap = new ConcurrentHashMap<>(5000);
 
     /**
      * 车辆信息缓存，配合Redis的设备缓存使用
      */
-    public static Map<String, VehicleCache> vehicleCacheMap = new ConcurrentHashMap<>();
+    public static Map<String, VehicleCache> vehicleCacheMap = new ConcurrentHashMap<>(5000);
 
     /**
      * 内存合包

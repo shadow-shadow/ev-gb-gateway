@@ -36,7 +36,9 @@ public class EvGBNettyHandler extends AbstractNettyHandler {
     public void doLogic(ChannelHandlerContext ctx, IProtocol protocol) {
         EvGBProtocol evGBProtocol = (EvGBProtocol)protocol;
         String message = JSONObject.toJSONString(protocol);
-        LOGGER.debug("parse protocol:{}", message);
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("parse protocol:{}", message);
+        }
         if(!evGBProtocol.getBcc() || !evGBProtocol.getBegin()){
             LOGGER.warn("{} invalid data packet",evGBProtocol.getVin());
             return;

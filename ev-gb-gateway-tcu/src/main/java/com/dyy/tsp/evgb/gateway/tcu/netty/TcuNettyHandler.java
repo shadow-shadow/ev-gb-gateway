@@ -38,14 +38,18 @@ public class TcuNettyHandler extends AbstractNettyHandler {
     @Override
     public void doLogic(ChannelHandlerContext ctx, IProtocol protocol) {
         EvGBProtocol evGBProtocol = (EvGBProtocol)protocol;
-        LOGGER.debug("parse protocol:{}", JSONObject.toJSONString(protocol));
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("parse protocol:{}", JSONObject.toJSONString(protocol));
+        }
         businessHandler.doBusiness(evGBProtocol,ctx.channel());
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ChannelEnum.INSTANCE.setChannel(ctx.channel());
-        LOGGER.debug("server ip[{}] connected succeed",ctx.channel().remoteAddress().toString());
+        if(LOGGER.isDebugEnabled()){
+            LOGGER.debug("server ip[{}] connected succeed",ctx.channel().remoteAddress().toString());
+        }
         super.channelActive(ctx);
     }
 

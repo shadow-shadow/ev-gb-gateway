@@ -12,6 +12,7 @@ import io.netty.buffer.Unpooled;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.time.Instant;
 
 /**
  * GB32960协议封装
@@ -92,9 +93,15 @@ public class EvGBProtocol implements IProtocol {
         bccBuffer.writeByte(responseType.getId());
         bccBuffer.writeBytes(vin.getBytes(Charset.forName(Constants.UTF_8)));
         bccBuffer.writeByte(encryptionType.getId());
-        if(body!=null && body.getByteBuf()!=null && body.getByteBuf().readableBytes()>0){
-            bccBuffer.writeShort(body.getByteBuf().readableBytes());
-            bccBuffer.writeBytes(body.getByteBuf());
+        if(body!=null){
+            ByteBuf byteBuf = body.getByteBuf();
+            if(byteBuf!=null){
+                int i = byteBuf.readableBytes();
+                if(i>0){
+                    bccBuffer.writeShort(body.getByteBuf().readableBytes());
+                    bccBuffer.writeBytes(body.getByteBuf());
+                }
+            }
         }else{
             bccBuffer.writeShort(0);
         }
@@ -129,10 +136,10 @@ public class EvGBProtocol implements IProtocol {
             int length = byteBuf.readUnsignedShort();
             protocol.setLength(length);
             if(length>0){
-                protocol.setBody(new DataBody(byteBuf.readSlice(length).copy()));
+                protocol.setBody(new DataBody(byteBuf.readSlice(length)));
             }
         }
-        protocol.setGatewayReceiveTime(System.currentTimeMillis());
+        protocol.setGatewayReceiveTime(Instant.now().toEpochMilli());
         byteBuf.readUnsignedByte();
         return protocol;
     }

@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 /**
  * 终端校时处理器。
  * 需要给终端响应
@@ -27,7 +29,7 @@ public class CheckTimeHandler extends AbstractBusinessHandler {
      */
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
-        doCommonResponse(ResponseType.SUCCESS,protocol,new BeanTime(System.currentTimeMillis()),channel);
+        doCommonResponse(ResponseType.SUCCESS,protocol,new BeanTime(Instant.now().toEpochMilli()),channel);
     }
 
 }

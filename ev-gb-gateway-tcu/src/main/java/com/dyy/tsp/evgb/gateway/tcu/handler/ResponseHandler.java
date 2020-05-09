@@ -17,11 +17,16 @@ public class ResponseHandler extends AbstractBusinessHandler {
 
     @Override
     public void doBusiness(EvGBProtocol protrocol, Channel channel) {
+        boolean debugEnabled = LOGGER.isDebugEnabled();
         if(protrocol.getCommandType()!= CommandType.HEARTBEAT){
             BeanTime beanTime = protrocol.getBody().getJson().toJavaObject(BeanTime.class);
-            LOGGER.debug("{} {} {} 响应{}",protrocol.getVin(),beanTime.formatTime(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            if(debugEnabled){
+                LOGGER.debug("{} {} {} 响应{}",protrocol.getVin(),beanTime.formatTime(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            }
         }else{
-            LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            if(debugEnabled){
+                LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            }
         }
     }
 

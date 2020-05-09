@@ -37,6 +37,9 @@ public class EvGBProperties {
     //转发国标/地标
     private String evgbTopic = "dyy_evgb_data";
 
+    //是否开始消息投递回调
+    private Boolean callBackFlag = Boolean.FALSE;
+
     //协议配置
     private Integer maxFrameLength = 65556;
     private Integer lengthFieldOffset = 22;
