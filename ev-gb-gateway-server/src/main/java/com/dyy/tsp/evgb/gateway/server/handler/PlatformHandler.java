@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 /**
  * 平台登入，平台登出处理器。需要给终端响应
  * 终端应该遵循国家标准,必须支持该两个指令,完成国家抽检直连考试
- *
  * 平台转发过检不实现该两个指令逻辑！！！
  * created by dyy
  */

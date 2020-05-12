@@ -1,7 +1,6 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dyy.tsp.common.asyn.TaskPool;
 import com.dyy.tsp.evgb.gateway.protocol.common.CommonCache;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleCache;
@@ -10,9 +9,7 @@ import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.handler.IHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
 import com.dyy.tsp.evgb.gateway.server.enumtype.GatewayCoreType;
-import com.dyy.tsp.redis.asynchronous.AsynRedisCallable;
-import com.dyy.tsp.redis.asynchronous.RedisOperation;
-import com.dyy.tsp.redis.enumtype.LibraryType;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,9 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * 业务处理核心类
@@ -40,6 +34,8 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
 
     @Autowired
     private DebugHandler debugHandler;
+    @Autowired
+    private AsynRedisHandler asynRedisHandler;
 
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
@@ -61,6 +57,12 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
             if(handler != null){
                 handler.doBusiness(protocol,channel);
             }
+            if(protocol.getBody() != null){
+                ByteBuf byteBuf = protocol.getBody().getByteBuf();
+                if(byteBuf!=null){
+                    byteBuf.release();
+                }
+            }
         }
     }
 
@@ -74,17 +76,7 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
         if(vehicleCache!=null){
             return vehicleCache;
         }
-        AsynRedisCallable asynRedisCallable = new AsynRedisCallable(LibraryType.SING_AND_TOKEN, RedisOperation.GET, key);
-        FutureTask<String> callableTask = new FutureTask<>(asynRedisCallable);
-        TaskPool.getInstance().execute(callableTask);
-        String cacheData = null;
-        try {
-            cacheData = callableTask.get(1, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            LOGGER.error("{} 异步获取缓存超时",key);
-        } catch (Exception e){
-            LOGGER.error(key+"异步获取缓存错误:",e);
-        }
+        String cacheData = asynRedisHandler.getVehicleCache(key);
         if(StringUtils.isBlank(cacheData)){
             return null;
         }

@@ -5,6 +5,7 @@ import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.Data;
+import java.time.Instant;
 import java.util.Calendar;
 
 /**
@@ -56,6 +57,7 @@ public class BeanTime implements IStatus {
         this.seconds = (short) calendar.get(Calendar.SECOND);
         ;
     }
+
     public String formatTime() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(String.format("%02d", this.year))
@@ -75,12 +77,20 @@ public class BeanTime implements IStatus {
         this.day = (short) calendar.get(Calendar.DAY_OF_MONTH);
 
     }
+
     public String formatTimeByDay() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(String.format("%04d", this.year))
                     .append(String.format("%02d", this.month))
                     .append(String.format("%02d", this.day));
         return stringBuffer.toString();
+    }
+
+    public Long toTimestamp() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Instant.now().toEpochMilli());
+        calendar.set(calendar.get(Calendar.YEAR), month - 1, day, hours, minutes, seconds);
+        return calendar.getTimeInMillis();
     }
 
     @Override
