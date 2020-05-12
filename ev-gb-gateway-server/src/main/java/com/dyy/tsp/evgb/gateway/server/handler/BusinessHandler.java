@@ -9,7 +9,8 @@ import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.handler.IHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
 import com.dyy.tsp.evgb.gateway.server.enumtype.GatewayCoreType;
-import io.netty.buffer.ByteBuf;
+import com.dyy.tsp.redis.enumtype.LibraryType;
+import com.dyy.tsp.redis.handler.RedisHandler;
 import io.netty.channel.Channel;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
     @Autowired
     private DebugHandler debugHandler;
     @Autowired
-    private AsynRedisHandler asynRedisHandler;
+    private RedisHandler redisHandler;
 
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
@@ -57,12 +58,6 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
             if(handler != null){
                 handler.doBusiness(protocol,channel);
             }
-            if(protocol.getBody() != null){
-                ByteBuf byteBuf = protocol.getBody().getByteBuf();
-                if(byteBuf!=null){
-                    byteBuf.release();
-                }
-            }
         }
     }
 
@@ -76,7 +71,7 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
         if(vehicleCache!=null){
             return vehicleCache;
         }
-        String cacheData = asynRedisHandler.getVehicleCache(key);
+        String cacheData = redisHandler.getAsyn(LibraryType.SING_AND_TOKEN,key);
         if(StringUtils.isBlank(cacheData)){
             return null;
         }

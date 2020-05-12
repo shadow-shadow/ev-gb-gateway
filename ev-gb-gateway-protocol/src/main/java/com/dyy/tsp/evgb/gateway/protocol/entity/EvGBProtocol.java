@@ -98,8 +98,8 @@ public class EvGBProtocol implements IProtocol {
             if(byteBuf!=null){
                 int i = byteBuf.readableBytes();
                 if(i>0){
-                    bccBuffer.writeShort(body.getByteBuf().readableBytes());
-                    bccBuffer.writeBytes(body.getByteBuf());
+                    bccBuffer.writeShort(i);
+                    bccBuffer.writeBytes(byteBuf);
                 }
             }
         }else{

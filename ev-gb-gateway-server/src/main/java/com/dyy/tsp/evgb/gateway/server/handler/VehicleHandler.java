@@ -1,5 +1,6 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dyy.tsp.evgb.gateway.protocol.common.CommonCache;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleCache;
@@ -8,6 +9,8 @@ import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleLogout;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
+import com.dyy.tsp.redis.enumtype.LibraryType;
+import com.dyy.tsp.redis.handler.RedisHandler;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +32,7 @@ public class VehicleHandler extends AbstractBusinessHandler {
     private ForwardHandler forwardHandler;
 
     @Autowired
-    private AsynRedisHandler asynRedisHandler;
+    private RedisHandler redisHandler;
 
     @Override
     public void doBusiness(EvGBProtocol protrocol, Channel channel) {
@@ -59,7 +62,7 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLoginTime(vehicleLogin.getBeanTime().formatTime());
         vehicleCache.setLastLoginSerialNum(vehicleLogin.getSerialNum());
         vehicleCache.setLogin(Boolean.TRUE);
-        asynRedisHandler.setVehicleCache(redisKey,vehicleCache);
+        redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
         CommonCache.vehicleCacheMap.put(redisKey,vehicleCache);
         CommonCache.vinChannelMap.put(protrocol.getVin(),channel);
         CommonCache.channelVinMap.put(channel,protrocol.getVin());
@@ -79,7 +82,7 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLogoutTime(vehicleLogout.getBeanTime().formatTime());
         vehicleCache.setLastLogoutSerialNum(vehicleLogout.getSerialNum());
         vehicleCache.setLogin(Boolean.FALSE);
-        asynRedisHandler.setVehicleCache(redisKey,vehicleCache);
+        redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
         CommonCache.vehicleCacheMap.remove(redisKey);
         CommonCache.vinChannelMap.remove(protrocol.getVin());
         CommonCache.channelVinMap.remove(channel);
