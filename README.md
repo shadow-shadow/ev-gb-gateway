@@ -16,7 +16,7 @@ ev-gb-gateway-tcu
 	
 ev-gb-gateway-exe
 
-    需要通过exe4j将jar打成windows桌面程序。测试人员即可快速进行报文解析与编码。
+    Java实现windwos桌面程序,测试人员即可快速进行报文解析与编码。参考document目录下gb32960-exe.zip
 
 ev-gb-gateway-dispatcher
 
