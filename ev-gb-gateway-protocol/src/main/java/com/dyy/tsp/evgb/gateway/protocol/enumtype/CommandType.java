@@ -9,9 +9,9 @@ public enum CommandType {
 
     //上行指令
     VEHICLE_LOGIN((short)1, "车辆登入"),
-    VEHICLE_LOGOUT((short)2,"车辆登出"),
-    REALTIME_DATA_REPORTING((short)3,"实时信息上报"),
-    REPLACEMENT_DATA_REPORTING((short)4,"补发信息上报"),
+    REALTIME_DATA_REPORTING((short)2,"实时信息上报"),
+    REPLACEMENT_DATA_REPORTING((short)3,"补发信息上报"),
+    VEHICLE_LOGOUT((short)4,"车辆登出"),
     PLATFORM_LOGIN((short)5,"平台登入"), //国家过检才用
     PLATFORM_LOGOUT((short)6,"平台登出"), //国家过检才用
     HEARTBEAT((short)7,"心跳"),

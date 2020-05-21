@@ -23,12 +23,6 @@
             <artifactId>dyy-boot-starter-common</artifactId>
             <version>${boot.framework.version}</version>
         </dependency>
-        <!--Redis封装-->
-        <dependency>
-            <groupId>com.dyy.tsp</groupId>
-            <artifactId>dyy-boot-starter-redis</artifactId>
-            <version>${boot.framework.version}</version>
-        </dependency>
         <!--kafka封装-->
         <dependency>
             <groupId>com.dyy.tsp</groupId>
