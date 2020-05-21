@@ -12,23 +12,11 @@
     <artifactId>ev-gb-gateway-tcu</artifactId>
 
     <dependencies>
-        <!--netty封装-->
-        <dependency>
-            <groupId>com.dyy.tsp</groupId>
-            <artifactId>dyy-boot-starter-netty</artifactId>
-            <version>${boot.framework.version}</version>
-        </dependency>
         <!--协议封装依赖-->
         <dependency>
             <groupId>com.dyy.tsp.evgb.gateway</groupId>
             <artifactId>ev-gb-gateway-protocol</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <!--公用swagger-->
-        <dependency>
-            <groupId>com.dyy.tsp</groupId>
-            <artifactId>dyy-boot-starter-swagger</artifactId>
-            <version>${boot.framework.version}</version>
         </dependency>
         <!--公用api-->
         <dependency>
@@ -40,6 +28,30 @@
         <dependency>
             <groupId>com.dyy.tsp</groupId>
             <artifactId>dyy-boot-starter-websocket</artifactId>
+            <version>${boot.framework.version}</version>
+        </dependency>
+        <!--微服务公用封装-->
+        <dependency>
+            <groupId>com.dyy.tsp</groupId>
+            <artifactId>dyy-boot-starter-cloud</artifactId>
+            <version>${boot.framework.version}</version>
+        </dependency>
+        <!--Redis封装-->
+        <dependency>
+            <groupId>com.dyy.tsp</groupId>
+            <artifactId>dyy-boot-starter-redis</artifactId>
+            <version>${boot.framework.version}</version>
+        </dependency>
+        <!--kafka封装-->
+        <dependency>
+            <groupId>com.dyy.tsp</groupId>
+            <artifactId>dyy-boot-starter-kafka</artifactId>
+            <version>${boot.framework.version}</version>
+        </dependency>
+        <!--test封装-->
+        <dependency>
+            <groupId>com.dyy.tsp</groupId>
+            <artifactId>dyy-boot-starter-test</artifactId>
             <version>${boot.framework.version}</version>
         </dependency>
     </dependencies>
