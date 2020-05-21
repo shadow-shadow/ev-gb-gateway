@@ -109,7 +109,7 @@ public class RealTimeData implements IStatus {
             buffer.writeByte(RealTimeDataType.VEHICLE.getId());
             buffer.writeBytes(vehicleData.encode());
         }
-        if (driveMotorCount > 0 && driveMotorDatas != null) {
+        if (driveMotorCount != null && driveMotorCount > 0 && driveMotorDatas != null) {
             buffer.writeByte(RealTimeDataType.DRIVEMOTOR.getId());
             buffer.writeByte(driveMotorCount);
             for (int i = 0; i < driveMotorCount; i++) {
@@ -136,14 +136,14 @@ public class RealTimeData implements IStatus {
             buffer.writeByte(RealTimeDataType.ALARM.getId());
             buffer.writeBytes(alarmData.encode());
         }
-        if (subsystemVoltageCount > 0 && subsystemVoltageDatas != null) {
+        if (subsystemVoltageCount != null && subsystemVoltageCount > 0 && subsystemVoltageDatas != null) {
             buffer.writeByte(RealTimeDataType.VOLTAGE.getId());
             buffer.writeByte(subsystemVoltageCount);
             for (int i = 0; i < subsystemVoltageCount; i++) {
                 buffer.writeBytes(subsystemVoltageDatas.get(i).encode());
             }
         }
-        if (subsystemTemperatureCount > 0 && subsystemTemperatureDatas != null) {
+        if (subsystemTemperatureCount != null && subsystemTemperatureCount > 0 && subsystemTemperatureDatas != null) {
             buffer.writeByte(RealTimeDataType.TEMPERATURE.getId());
             buffer.writeByte(subsystemTemperatureCount);
             for (int i = 0; i < subsystemTemperatureCount; i++) {
