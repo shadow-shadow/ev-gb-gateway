@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.time.Instant;
 import java.util.Calendar;
@@ -17,17 +18,18 @@ import java.util.Calendar;
 @Data
 public class BeanTime implements IStatus {
 
-    private short year;
-
-    private short month;
-
-    private short day;
-
-    private short hours;
-
-    private short minutes;
-
-    private short seconds;
+    @ApiModelProperty( example = "20")
+    private Short year;
+    @ApiModelProperty( example = "5")
+    private Short month;
+    @ApiModelProperty( example = "26")
+    private Short day;
+    @ApiModelProperty( example = "10")
+    private Short hours;
+    @ApiModelProperty( example = "50")
+    private Short minutes;
+    @ApiModelProperty( example = "30")
+    private Short seconds;
 
     public BeanTime() {
     }

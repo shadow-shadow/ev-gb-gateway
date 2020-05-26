@@ -8,17 +8,17 @@ public enum GatewayCoreType {
 
     //上行指令
     VEHICLE_LOGIN((short)1, "车辆登入",new VehicleLogin(), VehicleHandler.class),
-    VEHICLE_LOGOUT((short)2,"车辆登出",new VehicleLogout(), VehicleHandler.class),
-    REALTIME_DATA_REPORTING((short)3,"实时信息上报",new RealTimeData(), RealTimeDataHandler.class),
-    REPLACEMENT_DATA_REPORTING((short)4,"补发信息上报",new RealTimeData(),RealTimeDataHandler.class),
+    REALTIME_DATA_REPORTING((short)2,"实时信息上报",new RealTimeData(), RealTimeDataHandler.class),
+    REPLACEMENT_DATA_REPORTING((short)3,"补发信息上报",new RealTimeData(), RealTimeDataHandler.class),
+    VEHICLE_LOGOUT((short)4,"车辆登出",new VehicleLogout(),VehicleHandler.class),
     PLATFORM_LOGIN((short)5,"平台登入",new PlatformLogin(), PlatformHandler.class), //国家过检才用
     PLATFORM_LOGOUT((short)6,"平台登出",new PlatformLogout(),PlatformHandler.class), //国家过检才用
     HEARTBEAT((short)7,"心跳",null, HeartBeatHandler.class),
     TERMINAL_CHECK_TIME((short)8,"终端校时",null, CheckTimeHandler.class),
 
     //下行指令
-    QUERY_COMMAND((short)128,"查询命令",null,null),
-    SET_COMMAND((short)129,"设置命令",null,null),
+    QUERY_COMMAND((short)128,"查询命令",new QueryParamsResponse(),ParamsHandler.class),
+    SET_COMMAND((short)129,"设置命令",null,ParamsHandler.class),
     REMOTE_CONTROL((short)130,"车载终端控制命令",null,null),
     ;
 

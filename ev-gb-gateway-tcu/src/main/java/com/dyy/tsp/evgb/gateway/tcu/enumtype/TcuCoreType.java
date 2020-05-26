@@ -1,6 +1,9 @@
 package com.dyy.tsp.evgb.gateway.tcu.enumtype;
 
 import com.dyy.tsp.evgb.gateway.protocol.entity.BeanTime;
+import com.dyy.tsp.evgb.gateway.protocol.entity.QueryParamsRequest;
+import com.dyy.tsp.evgb.gateway.protocol.entity.SetParamsRequest;
+import com.dyy.tsp.evgb.gateway.tcu.handler.ParamsHandler;
 import com.dyy.tsp.evgb.gateway.tcu.handler.ResponseHandler;
 import com.dyy.tsp.netty.common.IStatus;
 
@@ -9,17 +12,17 @@ public enum TcuCoreType {
 
     //上行指令
     VEHICLE_LOGIN((short)1, "车辆登入",new BeanTime(), ResponseHandler.class),
-    VEHICLE_LOGOUT((short)2,"车辆登出",new BeanTime(), ResponseHandler.class),
-    REALTIME_DATA_REPORTING((short)3,"实时信息上报",new BeanTime(), ResponseHandler.class),
-    REPLACEMENT_DATA_REPORTING((short)4,"补发信息上报",new BeanTime(),ResponseHandler.class),
+    REALTIME_DATA_REPORTING((short)2,"实时信息上报",new BeanTime(), ResponseHandler.class),
+    REPLACEMENT_DATA_REPORTING((short)3,"补发信息上报",new BeanTime(), ResponseHandler.class),
+    VEHICLE_LOGOUT((short)4,"车辆登出",new BeanTime(),ResponseHandler.class),
     PLATFORM_LOGIN((short)5,"平台登入",new BeanTime(), ResponseHandler.class), //国家过检才用
     PLATFORM_LOGOUT((short)6,"平台登出",new BeanTime(),ResponseHandler.class), //国家过检才用
     HEARTBEAT((short)7,"心跳",null, ResponseHandler.class),
     TERMINAL_CHECK_TIME((short)8,"终端校时",new BeanTime(), ResponseHandler.class),
 
     //下行指令
-    QUERY_COMMAND((short)128,"查询命令",null,null),
-    SET_COMMAND((short)129,"设置命令",null,null),
+    QUERY_COMMAND((short)128,"查询命令",new QueryParamsRequest(), ParamsHandler.class),
+    SET_COMMAND((short)129,"设置命令",new SetParamsRequest(),ParamsHandler.class),
     REMOTE_CONTROL((short)130,"车载终端控制命令",null,null),
     ;
 

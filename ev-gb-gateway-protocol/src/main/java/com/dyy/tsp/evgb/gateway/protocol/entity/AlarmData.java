@@ -6,6 +6,7 @@ import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -19,149 +20,91 @@ import java.util.List;
 @Data
 public class AlarmData implements IStatus {
 
-    /**
-     * 报警等级
-     */
+    @ApiModelProperty(value = "报警等级", example = "1")
     private Short level;
 
-    /**
-     * 报警通用标志
-     */
+    @ApiModelProperty(value = "报警通用标志", example = "1")
     private Long alarmInfo;
 
-    /**
-     * 温度差异报警
-     */
+    @ApiModelProperty(value = "温度差异报警")
     private Boolean temperatureDifferential;
 
-    /**
-     * 电池高温报警
-     */
+    @ApiModelProperty(value = "电池高温报警")
     private Boolean batteryHighTemperature;
 
-    /**
-     * 车载储能装置类型过压报警
-     */
+    @ApiModelProperty(value = "车载储能装置类型过压报警")
     private Boolean deviceTypeOverVoltage;
 
-    /**
-     * 车载储能装置类型欠压报警
-     */
+    @ApiModelProperty(value = "车载储能装置类型欠压报警")
     private Boolean deviceTypeUnderVoltage;
 
-    /**
-     * SOC过低报警
-     */
+    @ApiModelProperty(value = "SOC过低报警")
     private Boolean socLow;
 
-    /**
-     * 单体电池过压报警
-     */
+    @ApiModelProperty(value = "单体电池过压报警")
     private Boolean monomerBatteryOverVoltage;
 
-    /**
-     * 单体电池欠压报警
-     */
+    @ApiModelProperty(value = "单体电池欠压报警")
     private Boolean monomerBatteryUnderVoltage;
 
-    /**
-     * SOC过高报警
-     */
+    @ApiModelProperty(value = "SOC过高报警")
     private Boolean socHigh;
 
-    /**
-     * SOC跳变报警
-     */
+    @ApiModelProperty(value = "SOC跳变报警")
     private Boolean socJump;
 
-    /**
-     * 车载储能装置类型不匹配报警
-     */
+    @ApiModelProperty(value = "车载储能装置类型不匹配报警")
     private Boolean deviceTypeDontMatch;
 
-    /**
-     * 单体电池一致性差报警
-     */
+    @ApiModelProperty(value = "单体电池一致性差报警")
     private Boolean batteryConsistencyPoor;
 
-    /**
-     * 绝缘报警
-     */
+    @ApiModelProperty(value = "绝缘报警")
     private Boolean insulation;
 
-    /**
-     * DC温度报警
-     */
+    @ApiModelProperty(value = "DC温度报警")
     private Boolean dcTemperature;
 
-    /**
-     * 制动系统报警
-     */
+    @ApiModelProperty(value = "制动系统报警")
     private Boolean brakingSystem;
 
-    /**
-     * DC状态报警
-     */
+    @ApiModelProperty(value = "DC状态报警")
     private Boolean dcStatus;
 
-    /**
-     * 驱动电机控制器温度报警
-     */
+    @ApiModelProperty(value = "驱动电机控制器温度报警")
     private Boolean driveMotorControllerTemperature;
 
-    /**
-     * 高压互锁报警
-     */
+    @ApiModelProperty(value = "高压互锁报警")
     private Boolean highPressureInterlock;
 
-    /**
-     * 驱动电机温度报警
-     */
+    @ApiModelProperty(value = "驱动电机温度报警")
     private Boolean driveMotorTemperature;
 
-    /**
-     * 车载储能装置过充报警
-     */
+    @ApiModelProperty(value = "车载储能装置过充报警")
     private Boolean deviceTypeOverFilling;
 
-    /**
-     * 可储能装置故障数N1
-     */
+    @ApiModelProperty(value = "可储能装置故障数N1", example = "1")
     private Short deviceFailuresCount;
 
-    /**
-     * 可储能装置故障信息列表
-     */
+    @ApiModelProperty(value = "可储能装置故障信息列表")
     private List<Long> deviceFailuresCodes;
 
-    /**
-     * 驱动电机故障数N2
-     */
+    @ApiModelProperty(value = "驱动电机故障数N2", example = "1")
     private Short driveMotorFailuresCount;
 
-    /**
-     * 驱动电机故障信息列表
-     */
+    @ApiModelProperty(value = "驱动电机故障信息列表")
     private List<Long> driveMotorFailuresCodes;
 
-    /**
-     * 发动机故障数N3
-     */
+    @ApiModelProperty(value = "发动机故障数N3", example = "1")
     private Short engineFailuresCount;
 
-    /**
-     * 发动机故障信息列表
-     */
+    @ApiModelProperty(value = "发动机故障信息列表")
     private List<Long> engineFailuresCodes;
 
-    /**
-     * 其他故障数N4
-     */
+    @ApiModelProperty(value = "其他故障数N4", example = "1")
     private Short otherFailuresCount;
 
-    /**
-     * 其他故障信息列表
-     */
+    @ApiModelProperty(value = "其他故障信息列表")
     private List<Long> otherFailuresCodes;
 
     @Override

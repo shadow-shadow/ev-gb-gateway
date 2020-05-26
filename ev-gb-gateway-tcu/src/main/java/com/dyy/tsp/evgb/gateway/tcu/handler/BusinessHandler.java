@@ -22,9 +22,11 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
     @Override
     public void doBusiness(EvGBProtocol protrocol, Channel channel) {
         TcuCoreType tcuCoreType = TcuCoreType.valuesOf(protrocol.getCommandType().getId());
-        if(tcuCoreType.getHandler()!=null){
+        if(tcuCoreType.getHandler()!=null && tcuCoreType!=null){
             IHandler handler = (IHandler) applicationContext.getBean(tcuCoreType.getHandler());
-            handler.doBusiness(protrocol,channel);
+            if(handler!=null){
+                handler.doBusiness(protrocol,channel);
+            }
         }
     }
 

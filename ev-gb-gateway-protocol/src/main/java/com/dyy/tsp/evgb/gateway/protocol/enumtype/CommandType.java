@@ -20,7 +20,9 @@ public enum CommandType {
     //下行指令
     QUERY_COMMAND((short)128,"查询命令"),
     SET_COMMAND((short)129,"设置命令"),
-    REMOTE_CONTROL((short)130,"车载终端控制命令");
+    REMOTE_CONTROL((short)130,"车载终端控制命令"),
+
+    ERROR((short)255,"无法识别的指令标识");
     ;
 
     private Short id;
@@ -49,11 +51,11 @@ public enum CommandType {
 
     public static CommandType valuesOf(Short id) {
         for (CommandType enums : CommandType.values()) {
-            if (enums.getId()==id) {
+            if (enums.getId()==id.shortValue()) {
                 return enums;
             }
         }
-        return null;
+        return ERROR;
     }
 
     public static CommandType valuesOf(String name) {
@@ -62,6 +64,6 @@ public enum CommandType {
                 return enums;
             }
         }
-        return null;
+        return ERROR;
     }
 }

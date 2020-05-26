@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.nio.ByteOrder;
@@ -16,44 +17,28 @@ import java.nio.ByteOrder;
 @Data
 public class DriveMotorData implements IStatus {
 
-    /**
-     * 序号
-     */
+    @ApiModelProperty(value = "序号",example = "1")
     private Short num;
 
-    /**
-     * 驱动电机状态
-     */
+    @ApiModelProperty(value = "驱动电机状态",example = "1")
     private Short status;
 
-    /**
-     * 驱动电机控制器温度
-     */
+    @ApiModelProperty(value = "驱动电机控制器温度",example = "100")
     private Short controllerTemperature;
 
-    /**
-     * 驱动电机转速
-     */
+    @ApiModelProperty(value = "驱动电机转速",example = "10000")
     private Integer speed;
 
-    /**
-     * 驱动电机转矩
-     */
+    @ApiModelProperty(value = "驱动电机转矩",example = "20000")
     private Integer torque;
 
-    /**
-     * 驱动电机温度
-     */
+    @ApiModelProperty(value = "驱动电机温度",example = "100")
     private Short temperature;
 
-    /**
-     * 驱动电机控制器输入电压
-     */
+    @ApiModelProperty(value = "驱动电机控制器输入电压",example = "10000")
     private Integer controllerInputVoltage;
 
-    /**
-     * 驱动电机控制器直流母线电流
-     */
+    @ApiModelProperty(value = "驱动电机控制器直流母线电流",example = "20000")
     private Integer controllerDcBusbarCurrent;
 
     @Override

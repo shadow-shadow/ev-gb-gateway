@@ -18,5 +18,11 @@
             <artifactId>dyy-boot-starter-netty</artifactId>
             <version>${boot.framework.version}</version>
         </dependency>
+        <!--Swagger-->
+        <dependency>
+            <groupId>com.dyy.tsp</groupId>
+            <artifactId>dyy-boot-starter-swagger</artifactId>
+            <version>${boot.framework.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -31,6 +31,15 @@ public class ForwardHandler {
     private EvGBProperties evGBProperties;
 
     /**
+     * 转发数据到远控服务
+     * TODO
+     */
+    public void sendToRemoteResponse(){
+        //TODO
+        send(evGBProperties.getCommandResponseTopic(),"message");
+    }
+
+    /**
      * 转发数据到Debug
      * @param protocol
      */

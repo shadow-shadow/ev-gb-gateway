@@ -6,6 +6,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.EncryptionType;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.nio.ByteOrder;
@@ -21,19 +22,19 @@ public class PlatformLogin implements IStatus {
 
     private static final BeanTime producer = new BeanTime();
 
-    //平台登入时间
+    @ApiModelProperty(value = "平台登入时间")
     private BeanTime beanTime;
 
-    //平台登入流水号
+    @ApiModelProperty(value = "平台登入流水号",example = "1")
     private Integer serialNum;
 
-    //平台登入用户名 12位
+    @ApiModelProperty(value = "平台登入用户名",example = "PLATFORM_VIN")
     private String userName;
 
-    //平台登入用户名 20位
+    @ApiModelProperty(value = "平台登入密码",example = "PLATFORM_PASSWORD123")
     private String password;
 
-    //加密方式
+    @ApiModelProperty(value = "加密方式",example = "NONE")
     private EncryptionType encryptionType;
 
     @Override

@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
+import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.EncryptionType;
@@ -9,6 +10,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.netty.common.IProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -22,60 +24,41 @@ import java.time.Instant;
 @Data
 public class EvGBProtocol implements IProtocol {
 
-    /**
-     * 固定##开头
-     */
+    @ApiModelProperty(value = "固定##开头")
     @JSONField(serialize = false)
     private Boolean begin = Boolean.TRUE;
 
-    /**
-     * 命令标识
-     */
+    @ApiModelProperty(value = "命令标识",example = "HEARTBEAT")
     private CommandType commandType;
 
-    /**
-     * 应答标志
-     */
+    @ApiModelProperty(value = "应答标志",example = "COMMAND")
     private ResponseType responseType = ResponseType.COMMAND;
 
-    /**
-     * 车架号
-     */
+    @ApiModelProperty(value = "车架号",example = "LSFGHHH0123456789")
     private String vin;
 
-    /**
-     * 数据单元加密方式
-     */
+    @ApiModelProperty(value = "数据单元加密方式",example = "NONE")
     private EncryptionType encryptionType = EncryptionType.NONE;
 
-    /**
-     * 数据单元长度
-     */
+    @ApiModelProperty(value = "数据单元长度",example = "0")
     private Integer length;
 
-    /**
-     * 数据单元
-     */
+    @ApiModelProperty(value = "数据单元")
     private DataBody body;
 
-    /**
-     * BCC校验
-     */
+    @ApiModelProperty(value = "BCC校验")
     private Boolean bcc = Boolean.TRUE;
 
-    /**
-     * 主要是为了防止Dispatcher重复操作Redis  协议内部不使用
-     */
+    @ApiModelProperty(value = "十六进制原始报文")
+    private String hex;
+
+    @ApiModelProperty(value = "主要是为了防止Dispatcher重复操作Redis  协议内部不使用")
     private VehicleCache vehicleCache;
 
-    /**
-     * 网关接收时间  协议内部不使用
-     */
+    @ApiModelProperty(value = "网关接收时间  协议内部不使用")
     private Long gatewayReceiveTime;
 
-    /**
-     * 网关转发时间  协议内部不使用
-     */
+    @ApiModelProperty(value = "网关转发时间  协议内部不使用")
     private Long gatewayForwardTime;
 
     /**
@@ -122,26 +105,30 @@ public class EvGBProtocol implements IProtocol {
      */
     @Override
     public EvGBProtocol decode(ByteBuf byteBuf) throws BusinessException{
-        EvGBProtocol protocol = new EvGBProtocol();
+        byteBuf.markReaderIndex();
+        byte[] hexArray = new byte[byteBuf.writerIndex()];
+        byteBuf.readBytes(hexArray);
+        this.setHex(ByteUtil.byteToHex(hexArray));
+        byteBuf.resetReaderIndex();
         Boolean checkBcc = EvGBProtocol.checkBcc(byteBuf);
-        protocol.setBcc(checkBcc);
+        this.setBcc(checkBcc);
         Boolean checkBegin = Constants.BEGIN.equals(byteBuf.readSlice(2).toString(Charset.forName(Constants.UTF_8)));
-        protocol.setBegin(checkBegin);
-        protocol.setCommandType(CommandType.valuesOf(byteBuf.readUnsignedByte()));
-        protocol.setResponseType(ResponseType.valuesOf(byteBuf.readUnsignedByte()));
-        protocol.setVin(byteBuf.readSlice(17).toString(Charset.forName(Constants.UTF_8)));
-        protocol.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
+        this.setBegin(checkBegin);
+        this.setCommandType(CommandType.valuesOf(byteBuf.readUnsignedByte()));
+        this.setResponseType(ResponseType.valuesOf(byteBuf.readUnsignedByte()));
+        this.setVin(byteBuf.readSlice(17).toString(Charset.forName(Constants.UTF_8)));
+        this.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
         //校验码正确与起始符号正确的时候才解析数据单元
         if(checkBcc && checkBegin){
             int length = byteBuf.readUnsignedShort();
-            protocol.setLength(length);
+            this.setLength(length);
             if(length>0){
-                protocol.setBody(new DataBody(byteBuf.readSlice(length)));
+                this.setBody(new DataBody(byteBuf.readSlice(length)));
             }
         }
-        protocol.setGatewayReceiveTime(Instant.now().toEpochMilli());
+        this.setGatewayReceiveTime(Instant.now().toEpochMilli());
         byteBuf.readUnsignedByte();
-        return protocol;
+        return this;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.tcu.websocket;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dyy.tsp.evgb.gateway.protocol.entity.CommandDownRequest;
+import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandDownHelperType;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import com.dyy.tsp.websocket.handler.AbstractWebSocketHandler;
 import org.slf4j.Logger;
@@ -23,17 +24,13 @@ public class DebugWebSocketHandler extends AbstractWebSocketHandler {
 
     private static RedisHandler redisHandler;
 
-    private static final String CLOSE_DEBUG = "CLOSE_DEBUG";
-
-    private static final String OPEN_DEBUG = "OPEN_DEBUG";
-
     private static final String SRM_COMMAND_REQUEST = "dyy_command_request_data";
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
         String uniqueId = session.getUri().toString().split("uniqueId=")[1];
-        CommandDownRequest request = new CommandDownRequest(uniqueId, OPEN_DEBUG);
+        CommandDownRequest request = new CommandDownRequest(uniqueId, CommandDownHelperType.OPEN_DEBUG);
         redisHandler.pushMessage(SRM_COMMAND_REQUEST, JSONObject.toJSONString(request));
         LOGGER.info("{} send gateway open debug",uniqueId);
     }
@@ -43,7 +40,7 @@ public class DebugWebSocketHandler extends AbstractWebSocketHandler {
         super.afterConnectionClosed(session,closeStatus);
         String uniqueId = session.getUri().toString().split("uniqueId=")[1];
         //通知网关停止监控
-        CommandDownRequest request = new CommandDownRequest(uniqueId, CLOSE_DEBUG);
+        CommandDownRequest request = new CommandDownRequest(uniqueId, CommandDownHelperType.CLOSE_DEBUG);
         redisHandler.pushMessage(SRM_COMMAND_REQUEST, JSONObject.toJSONString(request));
         LOGGER.info("{} send gateway close debug",uniqueId);
     }

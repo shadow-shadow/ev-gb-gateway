@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 
@@ -15,19 +16,13 @@ import java.nio.ByteOrder;
 @Data
 public class EngineData implements IStatus {
 
-    /**
-     * 发动机状态
-     */
+    @ApiModelProperty(value = "发动机状态",example = "1")
     private Short status;
 
-    /**
-     * 曲轴转速
-     */
+    @ApiModelProperty(value = "曲轴转速",example = "10000")
     private Integer crankshaftSpeed;
 
-    /**
-     * 燃料消耗率
-     */
+    @ApiModelProperty(value = "燃料消耗率",example = "10000")
     private Integer fuelConsumption;
 
     @Override

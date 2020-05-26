@@ -3,6 +3,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.netty.buffer.ByteBuf;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,8 +14,10 @@ import lombok.Data;
 @Data
 public class DataBody {
 
+    @ApiModelProperty(value = "数据单元JSON")
     private JSONObject json;
 
+    @ApiModelProperty(value = "数据单元HEX")
     @JSONField(serialize = false)
     private ByteBuf byteBuf;
 

@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -17,39 +18,25 @@ import java.util.List;
 @Data
 public class SubsystemVoltageData implements IStatus {
 
-    /**
-     * 子系统号
-     */
+    @ApiModelProperty(value = "子系统号",example = "1")
     private Short num;
 
-    /**
-     * 电压
-     */
+    @ApiModelProperty(value = "电压",example = "10000")
     private Integer voltage;
 
-    /**
-     * 电流
-     */
+    @ApiModelProperty(value = "电流",example = "20000")
     private Integer current;
 
-    /**
-     * 单体电池个数
-     */
+    @ApiModelProperty(value = "单体电池个数",example = "1")
     private Integer cellCount;
 
-    /**
-     * 本帧起始电池序号
-     */
+    @ApiModelProperty(value = "本帧起始电池序号",example = "1")
     private Integer batteryNumber;
 
-    /**
-     * 本帧单体电池总数
-     */
+    @ApiModelProperty(value = "本帧单体电池总数",example = "1")
     private Short batteryConnt;
 
-    /**
-     * 单体电池电压列表
-     */
+    @ApiModelProperty(value = "单体电池电压列表",example = "1")
     private List<Integer> cellVoltages;
 
 

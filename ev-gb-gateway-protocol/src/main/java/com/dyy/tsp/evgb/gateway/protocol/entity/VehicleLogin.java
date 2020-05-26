@@ -5,6 +5,7 @@ import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.nio.ByteOrder;
@@ -22,22 +23,22 @@ public class VehicleLogin implements IStatus {
 
     private static final BeanTime producer = new BeanTime();
 
-    //车辆登入时间
+    @ApiModelProperty(value = "车辆登入时间")
     private BeanTime beanTime;
 
-    //车辆登入流水号
+    @ApiModelProperty(value = "车辆登入流水号",example = "1")
     private Integer serialNum;
 
-    //ICCID 20位
+    @ApiModelProperty(value = "ICCID",example = "ICCIDICCIDICCIDICCID")
     private String iccid;
 
-    //可充电储能子系统个数
+    @ApiModelProperty(value = "可充电储能子系统个数",example = "1")
     private Short count;
 
-    //可充电储能子系统编码长度
+    @ApiModelProperty(value = "可充电储能子系统编码长度",example = "6")
     private Short length;
 
-    //可充电储能子系统编码集合
+    @ApiModelProperty(value = "可充电储能子系统编码集合")
     private List<String> codes;
 
     @Override

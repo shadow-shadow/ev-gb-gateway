@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 
@@ -15,64 +16,40 @@ import java.nio.ByteOrder;
 @Data
 public class ExtremeData implements IStatus {
 
-    /**
-     * 最高电压电池子系统号
-     */
+    @ApiModelProperty(value = "最高电压电池子系统号",example = "1")
     private Short maxVoltageSystemNum;
 
-    /**
-     * 最高电压单体电池代号
-     */
+    @ApiModelProperty(value = "最高电压单体电池代号",example = "1")
     private Short maxVoltagebatteryNum;
 
-    /**
-     * 单体电池电压最高值
-     */
+    @ApiModelProperty(value = "单体电池电压最高值",example = "20000")
     private Integer batteryMaxVoltage;
 
-    /**
-     * 最低电压电池子系统号
-     */
+    @ApiModelProperty(value = "最低电压电池子系统号",example = "2")
     private Short minVoltageSystemNum;
 
-    /**
-     * 最低电压单体电池代号
-     */
+    @ApiModelProperty(value = "最低电压单体电池代号",example = "2")
     private Short minVoltagebatteryNum;
 
-    /**
-     * 单体电池电压最低值
-     */
+    @ApiModelProperty(value = "单体电池电压最低值",example = "10000")
     private Integer batteryMinVoltage;
 
-    /**
-     * 最高温度子系统号
-     */
+    @ApiModelProperty(value = "最高温度子系统号",example = "1")
     private Short maxTemperatureSystemNum;
 
-    /**
-     * 最高温度探针序号
-     */
+    @ApiModelProperty(value = "最高温度探针序号",example = "1")
     private Short maxTemperatureNum;
 
-    /**
-     * 最高温度值
-     */
+    @ApiModelProperty(value = "最高温度值",example = "100")
     private Short maxTemperature;
 
-    /**
-     * 最低温度子系统号
-     */
+    @ApiModelProperty(value = "最低温度子系统号",example = "2")
     private Short minTemperatureSystemNum;
 
-    /**
-     * 最低温度探针序号
-     */
+    @ApiModelProperty(value = "最低温度探针序号",example = "2")
     private Short minTemperatureNum;
 
-    /**
-     * 最低温度值
-     */
+    @ApiModelProperty(value = "最低温度值",example = "80")
     private Short minTemperature;
 
     @Override

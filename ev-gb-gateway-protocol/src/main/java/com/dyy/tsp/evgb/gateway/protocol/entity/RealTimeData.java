@@ -5,6 +5,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.RealTimeDataType;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,69 +25,43 @@ public class RealTimeData implements IStatus {
 
     private static final BeanTime producer = new BeanTime();
 
-    /**
-     * 数据采集时间
-     */
+    @ApiModelProperty(value = "数据采集时间")
     private BeanTime beanTime;
 
-   /**
-     * 整车数据
-     */
+    @ApiModelProperty(value = "整车数据")
     private VehicleData vehicleData;
 
-    /**
-     * 驱动电机个数
-     */
+    @ApiModelProperty(value = "驱动电机个数",example = "1")
     private Short driveMotorCount;
 
-    /**
-     * 驱动电机数据列表
-     */
+    @ApiModelProperty(value = "驱动电机数据列表")
     private List<DriveMotorData> driveMotorDatas;
 
-    /**
-     * 燃料电池数据
-     */
+    @ApiModelProperty(value = "燃料电池数据")
     private FuelCellData fuelCellData;
 
-    /**
-     * 发动机数据
-     */
+    @ApiModelProperty(value = "发动机数据")
     private EngineData engineData;
 
-    /**
-     * 位置数据
-     */
+    @ApiModelProperty(value = "位置数据")
     private LocationData locationData;
 
-    /**
-     * 极值数据
-     */
+    @ApiModelProperty(value = "极值数据")
     private ExtremeData extremeData;
 
-    /**
-     * 报警数据
-     */
+    @ApiModelProperty(value = "报警数据")
     private AlarmData alarmData;
 
-    /**
-     * 可充电储能装置电压数据个数
-     */
+    @ApiModelProperty(value = "可充电储能装置电压数据个数",example = "1")
     private Short subsystemVoltageCount;
 
-    /**
-     * 可充电储能装置电压数据列表
-     */
+    @ApiModelProperty(value = "可充电储能装置电压数据列表")
     private List<SubsystemVoltageData> subsystemVoltageDatas;
 
-    /**
-     * 可充电储能装置温度数据个数
-     */
+    @ApiModelProperty(value = "可充电储能装置温度数据个数",example = "1")
     private Short subsystemTemperatureCount;
 
-    /**
-     * 可充电储能装置温度数据列表
-     */
+    @ApiModelProperty(value = "可充电储能装置温度数据列表")
     private List<SubsystemTemperatureData> subsystemTemperatureDatas;
 
     @Override

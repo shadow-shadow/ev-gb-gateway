@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 
@@ -17,10 +18,10 @@ public class VehicleLogout implements IStatus {
 
     private static final BeanTime producer = new BeanTime();
 
-    //车辆登出时间
+    @ApiModelProperty(value = "车辆登出时间")
     private BeanTime beanTime;
 
-    //车辆登出流水号
+    @ApiModelProperty(value = "车辆登出流水号",example = "1")
     private Integer serialNum;
 
     @Override

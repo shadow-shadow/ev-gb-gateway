@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -17,19 +18,13 @@ import java.util.List;
 @Data
 public class SubsystemTemperatureData implements IStatus {
 
-    /**
-     * 子系统号
-     */
+    @ApiModelProperty(value = "子系统号",example = "1")
     private Short num;
 
-    /**
-     * 温度探针个数
-     */
+    @ApiModelProperty(value = "温度探针个数",example = "1")
     private Integer temperatureProbeCount;
 
-    /**
-     * 探针温度值列表
-     */
+    @ApiModelProperty(value = "探针温度值列表")
     private List<Short> probetemperatures;
 
 

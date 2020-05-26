@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -17,64 +18,40 @@ import java.util.List;
 @Data
 public class FuelCellData implements IStatus {
 
-    /**
-     * 燃料电池电压
-     */
+    @ApiModelProperty(value = "燃料电池电压",example = "10000")
     private Integer voltage;
 
-    /**
-     * 燃料电池电流
-     */
+    @ApiModelProperty(value = "燃料电池电流",example = "20000")
     private Integer current;
 
-    /**
-     * 燃料消耗率
-     */
+    @ApiModelProperty(value = "燃料消耗率",example = "20000")
     private Integer fuelConsumption;
 
-    /**
-     * 燃料电池温度探针总数
-     */
+    @ApiModelProperty(value = "燃料电池温度探针总数",example = "1")
     private Integer temperatureProbeCount;
 
-    /**
-     * 探针温度值
-     */
+    @ApiModelProperty(value = "探针温度值")
     private List<Short> probeTemperatures;
 
-    /**
-     * 氢系统中最高温度
-     */
+    @ApiModelProperty(value = "氢系统中最高温度",example = "140")
     private Integer hydrogenSystemMaxTemperature;
 
-    /**
-     * 氢系统中最高温度探针代号
-     */
+    @ApiModelProperty(value = "氢系统中最高温度探针代号",example = "1")
     private Short hydrogenSystemTemperatureProbeNum;
 
-    /**
-     * 氢气最高浓度
-     */
+    @ApiModelProperty(value = "氢气最高浓度",example = "10000")
     private Integer hydrogenSystemMaxConcentration;
 
-    /**
-     * 氢气最高浓度探针代号
-     */
+    @ApiModelProperty(value = "氢气最高浓度探针代号",example = "1")
     private Short hydrogenSystemConcentrationProbeNum;
 
-    /**
-     * 氢气最高压力
-     */
+    @ApiModelProperty(value = "氢气最高压力",example = "10000")
     private Integer hydrogenSystemMaxPressure;
 
-    /**
-     * 氢气最高压力探针代号
-     */
+    @ApiModelProperty(value = "氢气最高压力探针代号",example = "1")
     private Short hydrogenSystemPressureProbeNum;
 
-    /**
-     * 高压DC-DC状态
-     */
+    @ApiModelProperty(value = "高压DC-DC状态",example = "2")
     private Short dcStatus;
 
     @Override

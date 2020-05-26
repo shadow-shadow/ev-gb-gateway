@@ -4,6 +4,7 @@ import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
 
@@ -15,69 +16,43 @@ import java.nio.ByteOrder;
 @Data
 public class VehicleData implements IStatus {
 
-    /**
-     * 车辆状态
-     */
+    @ApiModelProperty(value = "车辆状态",example = "1")
     private Short vehicleStatus;
 
-    /**
-     * 充电状态
-     */
+    @ApiModelProperty(value = "充电状态",example = "1")
     private Short chargeStatus;
 
-    /**
-     * 运行模式
-     */
+    @ApiModelProperty(value = "运行模式",example = "1")
     private Short operationMode;
 
-    /**
-     * 车速
-     */
+    @ApiModelProperty(value = "车速",example = "1100")
     private Integer speed;
 
-    /**
-     * 累计里程
-     */
+    @ApiModelProperty(value = "累计里程",example = "111100")
     private Long mileage;
 
-    /**
-     * 总电压
-     */
+    @ApiModelProperty(value = "总电压",example = "10000")
     private Integer totalVoltage;
 
-    /**
-     * 总电流
-     */
+    @ApiModelProperty(value = "总电流",example = "20000")
     private Integer totalCurrent;
 
-    /**
-     * SOC电量
-     */
+    @ApiModelProperty(value = "SOC电量",example = "80")
     private Short soc;
 
-    /**
-     * DC_DC状态
-     */
+    @ApiModelProperty(value = "DC_DC状态",example = "1")
     private Short dcStatus;
 
-    /**
-     * 挡位
-     */
+    @ApiModelProperty(value = "挡位",example = "1")
     private Short gears;
 
-    /**
-     * 绝缘电阻
-     */
+    @ApiModelProperty(value = "绝缘电阻",example = "1000")
     private Integer insulationResistance;
 
-    /**
-     * 加速行程值
-     */
+    @ApiModelProperty(value = "加速行程值",example = "100")
     private Short accelerationValue;
 
-    /**
-     * 制动踏板状态
-     */
+    @ApiModelProperty(value = "制动踏板状态",example = "101")
     private Short brakePedalCondition;
 
     @Override

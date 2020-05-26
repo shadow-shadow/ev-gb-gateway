@@ -40,9 +40,9 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
 
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
-        debugHandler.debugger(protocol);
         GatewayCoreType gatewayCoreType = GatewayCoreType.valuesOf(protocol.getCommandType().getId());
-        if(gatewayCoreType.getHandler()!=null){
+        if(gatewayCoreType.getHandler()!=null && gatewayCoreType!=null){
+            debugHandler.debugger(protocol);
             String key = HelperKeyUtil.getKey(protocol.getVin());
             VehicleCache vehicleCache = this.findVehicleCache(key);
             CommandType commandType = protocol.getCommandType();
