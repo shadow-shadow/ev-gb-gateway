@@ -33,16 +33,17 @@ public class QueryParamsRequest implements IStatus {
 
     @Override
     public QueryParamsRequest decode(ByteBuf byteBuf) {
-        this.setBeanTime(producer.decode(byteBuf));
-        this.setCount(byteBuf.readUnsignedByte());
-        if(this.getCount()>0){
+        QueryParamsRequest queryParamsRequest = new QueryParamsRequest();
+        queryParamsRequest.setBeanTime(producer.decode(byteBuf));
+        queryParamsRequest.setCount(byteBuf.readUnsignedByte());
+        if(queryParamsRequest.getCount()>0){
             List<Short> ids = new ArrayList<>();
             for (int i = 0; i < this.getCount(); i++) {
                 ids.add(byteBuf.readUnsignedByte());
             }
-            this.setIds(ids);
+            queryParamsRequest.setIds(ids);
         }
-        return this;
+        return queryParamsRequest;
     }
 
     @Override

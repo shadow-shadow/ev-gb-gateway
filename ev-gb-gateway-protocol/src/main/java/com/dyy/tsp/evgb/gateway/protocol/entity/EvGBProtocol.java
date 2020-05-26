@@ -105,30 +105,31 @@ public class EvGBProtocol implements IProtocol {
      */
     @Override
     public EvGBProtocol decode(ByteBuf byteBuf) throws BusinessException{
+        EvGBProtocol protocol = new EvGBProtocol();
         byteBuf.markReaderIndex();
         byte[] hexArray = new byte[byteBuf.writerIndex()];
         byteBuf.readBytes(hexArray);
-        this.setHex(ByteUtil.byteToHex(hexArray));
+        protocol.setHex(ByteUtil.byteToHex(hexArray));
         byteBuf.resetReaderIndex();
         Boolean checkBcc = EvGBProtocol.checkBcc(byteBuf);
-        this.setBcc(checkBcc);
+        protocol.setBcc(checkBcc);
         Boolean checkBegin = Constants.BEGIN.equals(byteBuf.readSlice(2).toString(Charset.forName(Constants.UTF_8)));
-        this.setBegin(checkBegin);
-        this.setCommandType(CommandType.valuesOf(byteBuf.readUnsignedByte()));
-        this.setResponseType(ResponseType.valuesOf(byteBuf.readUnsignedByte()));
-        this.setVin(byteBuf.readSlice(17).toString(Charset.forName(Constants.UTF_8)));
-        this.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
+        protocol.setBegin(checkBegin);
+        protocol.setCommandType(CommandType.valuesOf(byteBuf.readUnsignedByte()));
+        protocol.setResponseType(ResponseType.valuesOf(byteBuf.readUnsignedByte()));
+        protocol.setVin(byteBuf.readSlice(17).toString(Charset.forName(Constants.UTF_8)));
+        protocol.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
         //校验码正确与起始符号正确的时候才解析数据单元
         if(checkBcc && checkBegin){
             int length = byteBuf.readUnsignedShort();
-            this.setLength(length);
+            protocol.setLength(length);
             if(length>0){
-                this.setBody(new DataBody(byteBuf.readSlice(length)));
+                protocol.setBody(new DataBody(byteBuf.readSlice(length)));
             }
         }
-        this.setGatewayReceiveTime(Instant.now().toEpochMilli());
+        protocol.setGatewayReceiveTime(Instant.now().toEpochMilli());
         byteBuf.readUnsignedByte();
-        return this;
+        return protocol;
     }
 
     /**

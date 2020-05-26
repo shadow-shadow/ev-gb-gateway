@@ -1,10 +1,12 @@
 package com.dyy.tsp.evgb.gateway.protocol.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.evgb.gateway.protocol.entity.BeanTime;
 import com.dyy.tsp.evgb.gateway.protocol.entity.DataBody;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +47,17 @@ public abstract class AbstractBusinessHandler implements IHandler {
     public void doCommonResponse(ResponseType responseType, EvGBProtocol protrocol, BeanTime beanTime, Channel channel) {
         protrocol.setBody(new DataBody(beanTime.encode()));
         protrocol.setResponseType(responseType);
+        ByteBuf responseBuf = protrocol.encode();
+        responseBuf.markReaderIndex();
+        byte[] responseArray = new byte[responseBuf.writerIndex()];
+        responseBuf.readBytes(responseArray);
+        String hex = ByteUtil.byteToHex(responseArray);
+        responseBuf.resetReaderIndex();
         channel.eventLoop().execute(()->{
-            channel.writeAndFlush(protrocol.encode());
+            channel.writeAndFlush(responseBuf);
         });
         if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
         }
     }
 
@@ -63,11 +71,17 @@ public abstract class AbstractBusinessHandler implements IHandler {
     @Override
     public void doHeartResponse(ResponseType responseType, EvGBProtocol protrocol, Channel channel) {
         protrocol.setResponseType(responseType);
+        ByteBuf responseBuf = protrocol.encode();
+        responseBuf.markReaderIndex();
+        byte[] responseArray = new byte[responseBuf.writerIndex()];
+        responseBuf.readBytes(responseArray);
+        String hex = ByteUtil.byteToHex(responseArray);
+        responseBuf.resetReaderIndex();
         channel.eventLoop().execute(()->{
-            channel.writeAndFlush(protrocol.encode());
+            channel.writeAndFlush(responseBuf);
         });
         if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
+            LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
         }
     }
 }
