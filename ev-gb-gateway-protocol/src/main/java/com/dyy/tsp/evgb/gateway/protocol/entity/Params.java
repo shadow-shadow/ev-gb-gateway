@@ -1,5 +1,6 @@
 package com.dyy.tsp.evgb.gateway.protocol.entity;
 
+import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
@@ -35,7 +36,7 @@ public class Params implements IStatus {
     @ApiModelProperty(value = "硬件版本", example = "12345")
     protected String hardwareVersion;
 
-    @ApiModelProperty(value = "软件版本", example = "12345")
+    @ApiModelProperty(value = "固件版本", example = "12345")
     protected String softwareVersion;
 
     @ApiModelProperty(value = "车载终端心跳収送周期，有效值范围：1～240（表示 1s～240s），最小 计量单元：1s，“ 0xFE”表示异常，“0xFF”表示无效。", example = "1")
@@ -137,7 +138,7 @@ public class Params implements IStatus {
                     break;
                 }
                 default:
-                    break;
+                    throw new BusinessException("Unknown Params id : " + id);
             }
         }
         return params;

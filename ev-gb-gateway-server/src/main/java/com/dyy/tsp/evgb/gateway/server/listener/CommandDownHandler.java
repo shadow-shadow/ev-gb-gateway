@@ -73,7 +73,7 @@ public class CommandDownHandler {
         boolean debugEnabled = LOGGER.isDebugEnabled();
         Channel channel = getChannel(request.getVin());
         if(channel!=null && channel.isActive()){
-
+            //TODO 下发车载终端控制请求到设备
 
         }else{
             if(debugEnabled){

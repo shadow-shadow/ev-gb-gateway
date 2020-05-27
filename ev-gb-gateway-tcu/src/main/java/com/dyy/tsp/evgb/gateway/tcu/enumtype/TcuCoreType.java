@@ -3,8 +3,10 @@ package com.dyy.tsp.evgb.gateway.tcu.enumtype;
 import com.dyy.tsp.evgb.gateway.protocol.entity.BeanTime;
 import com.dyy.tsp.evgb.gateway.protocol.entity.QueryParamsRequest;
 import com.dyy.tsp.evgb.gateway.protocol.entity.SetParamsRequest;
+import com.dyy.tsp.evgb.gateway.protocol.entity.TerminalControlRequest;
 import com.dyy.tsp.evgb.gateway.tcu.handler.ParamsHandler;
 import com.dyy.tsp.evgb.gateway.tcu.handler.ResponseHandler;
+import com.dyy.tsp.evgb.gateway.tcu.handler.TerminalControlHandler;
 import com.dyy.tsp.netty.common.IStatus;
 
 @SuppressWarnings("all")
@@ -23,7 +25,7 @@ public enum TcuCoreType {
     //下行指令
     QUERY_COMMAND((short)128,"查询命令",new QueryParamsRequest(), ParamsHandler.class),
     SET_COMMAND((short)129,"设置命令",new SetParamsRequest(),ParamsHandler.class),
-    REMOTE_CONTROL((short)130,"车载终端控制命令",null,null),
+    REMOTE_CONTROL((short)130,"车载终端控制命令",new TerminalControlRequest(), TerminalControlHandler.class),
     ;
 
     private Short id;
