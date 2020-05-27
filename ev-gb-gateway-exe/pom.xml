@@ -18,11 +18,6 @@
             <artifactId>ev-gb-gateway-protocol</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.dyy.tsp</groupId>
-            <artifactId>dyy-boot-starter-common</artifactId>
-            <version>${boot.framework.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
