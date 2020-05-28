@@ -41,7 +41,7 @@ public class EvGBNettyHandler extends AbstractNettyHandler {
         String message = JSONObject.toJSONString(protocol);
         LOGGER.debug("parse protocol:{}", message);
         if(!evGBProtocol.getBcc() || !evGBProtocol.getBegin()){
-            LOGGER.warn("{} invalid data packet",evGBProtocol.getVin());
+            LOGGER.error("[{}] invalid data packet [{}]",evGBProtocol.getVin(),((EvGBProtocol) protocol).getHex());
             return;
         }
         businessHandler.doBusiness(evGBProtocol,ctx.channel());
