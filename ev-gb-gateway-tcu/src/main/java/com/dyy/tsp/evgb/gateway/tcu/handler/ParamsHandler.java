@@ -32,8 +32,9 @@ public class ParamsHandler extends AbstractBusinessHandler {
     private void doSetOrQueryRequest(EvGBProtocol protrocol, Channel channel) {
         protrocol.setResponseType(ResponseType.SUCCESS);
         if(protrocol.getCommandType() == CommandType.QUERY_COMMAND){
+            QueryParamsRequest queryParamsRequest = protrocol.getBody().getJson().toJavaObject(QueryParamsRequest.class);
             QueryParamsResponse response = new QueryParamsResponse();
-            response.setBeanTime(new BeanTime(Instant.now().toEpochMilli()));
+            response.setBeanTime(queryParamsRequest.getBeanTime());
             response.setCount((short)16);
             Params params = new Params();
             params.setLocalStorageTimeCycleOfVehicleTerminal(10);
@@ -55,7 +56,8 @@ public class ParamsHandler extends AbstractBusinessHandler {
             response.setParams(params);
             protrocol.setBody(new DataBody(response.encode()));
         }else{
-            protrocol.setBody(null);
+            SetParamsRequest setParamsRequest = protrocol.getBody().getJson().toJavaObject(SetParamsRequest.class);
+            protrocol.setBody(new DataBody(setParamsRequest.getBeanTime().encode()));
         }
         channel.writeAndFlush(protrocol.encode());
         LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());

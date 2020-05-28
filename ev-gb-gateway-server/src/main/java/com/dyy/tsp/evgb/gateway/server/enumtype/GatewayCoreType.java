@@ -18,7 +18,7 @@ public enum GatewayCoreType {
 
     //下行指令
     QUERY_COMMAND((short)128,"查询命令",new QueryParamsResponse(),ParamsHandler.class),
-    SET_COMMAND((short)129,"设置命令",null,ParamsHandler.class),
+    SET_COMMAND((short)129,"设置命令",new BeanTime(),ParamsHandler.class),
     REMOTE_CONTROL((short)130,"车载终端控制命令",new BeanTime(), TerminalControlResponseHandler.class),
     ;
 
