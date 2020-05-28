@@ -9,6 +9,7 @@ import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleLogout;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
+import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
 import com.dyy.tsp.redis.enumtype.LibraryType;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import io.netty.channel.Channel;
@@ -30,9 +31,10 @@ public class VehicleHandler extends AbstractBusinessHandler {
 
     @Autowired
     private ForwardHandler forwardHandler;
-
     @Autowired
     private RedisHandler redisHandler;
+    @Autowired
+    private CaffeineCache caffeineCache;
 
     @Override
     public void doBusiness(EvGBProtocol protrocol, Channel channel) {
@@ -63,7 +65,7 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLoginSerialNum(vehicleLogin.getSerialNum());
         vehicleCache.setLogin(Boolean.TRUE);
         redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
-        CommonCache.vehicleCacheMap.put(redisKey,vehicleCache);
+        caffeineCache.getVehicleCacheMap().put(redisKey,vehicleCache);
         CommonCache.vinChannelMap.put(protrocol.getVin(),channel);
         CommonCache.channelVinMap.put(channel,protrocol.getVin());
         forwardHandler.sendToDispatcher(protrocol);
@@ -83,7 +85,7 @@ public class VehicleHandler extends AbstractBusinessHandler {
         vehicleCache.setLastLogoutSerialNum(vehicleLogout.getSerialNum());
         vehicleCache.setLogin(Boolean.FALSE);
         redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
-        CommonCache.vehicleCacheMap.remove(redisKey);
+        caffeineCache.remove(redisKey);
         CommonCache.vinChannelMap.remove(protrocol.getVin());
         CommonCache.channelVinMap.remove(channel);
         forwardHandler.sendToDispatcher(protrocol);

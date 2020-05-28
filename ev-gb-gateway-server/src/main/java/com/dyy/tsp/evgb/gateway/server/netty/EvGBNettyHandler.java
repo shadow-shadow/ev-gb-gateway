@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dyy.tsp.evgb.gateway.protocol.common.CommonCache;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
+import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
 import com.dyy.tsp.evgb.gateway.server.handler.BusinessHandler;
 import com.dyy.tsp.netty.common.IProtocol;
 import com.dyy.tsp.netty.tcp.handler.AbstractNettyHandler;
@@ -31,6 +32,8 @@ public class EvGBNettyHandler extends AbstractNettyHandler {
 
     @Autowired
     private BusinessHandler businessHandler;
+    @Autowired
+    private CaffeineCache caffeineCache;
 
     @Override
     public void doLogic(ChannelHandlerContext ctx, IProtocol protocol) {
@@ -50,7 +53,7 @@ public class EvGBNettyHandler extends AbstractNettyHandler {
         String vin = CommonCache.channelVinMap.remove(channel);
         if(StringUtils.isNotBlank(vin)){
             CommonCache.vinChannelMap.remove(vin);
-            CommonCache.vehicleCacheMap.remove(HelperKeyUtil.getKey(vin));
+            caffeineCache.remove(HelperKeyUtil.getKey(vin));
         }
         super.channelInactive(ctx);
     }

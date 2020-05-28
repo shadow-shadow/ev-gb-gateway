@@ -1,8 +1,6 @@
 package com.dyy.tsp.evgb.gateway.protocol.common;
 
-import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import io.netty.channel.Channel;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,11 +20,6 @@ public class CommonCache {
      * Channel作为key 车架号作为value
      */
     public static Map<Channel,String> channelVinMap = new ConcurrentHashMap<>(2048);
-
-    /**
-     * 车辆信息缓存，配合Redis的设备缓存使用
-     */
-    public static Map<String, VehicleCache> vehicleCacheMap = new ConcurrentHashMap<>(2048);
 
     /**
      * Debug在线监控

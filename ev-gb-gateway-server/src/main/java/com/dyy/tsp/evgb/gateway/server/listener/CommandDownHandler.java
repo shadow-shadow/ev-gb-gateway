@@ -7,10 +7,12 @@ import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownRequest;
 import com.dyy.tsp.evgb.gateway.protocol.entity.*;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
+import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +24,9 @@ import org.springframework.stereotype.Service;
 public class CommandDownHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandDownHandler.class);
+
+    @Autowired
+    private CaffeineCache caffeineCache;
 
     /**
      * 远程控制指令下发
@@ -48,7 +53,7 @@ public class CommandDownHandler {
                 LOGGER.debug("{} webSocket console close",request.getVin());
                 break;
             case CLEAR_CAHCE:
-                CommonCache.vehicleCacheMap.remove(HelperKeyUtil.getKey(request.getVin()));
+                caffeineCache.remove(HelperKeyUtil.getKey(request.getVin()));
                 LOGGER.debug("{} clear cache",request.getVin());
                 break;
             default:

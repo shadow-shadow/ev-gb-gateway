@@ -1,18 +1,15 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
-import com.alibaba.fastjson.JSONObject;
-import com.dyy.tsp.evgb.gateway.protocol.common.CommonCache;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.handler.IHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
+import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
 import com.dyy.tsp.evgb.gateway.server.enumtype.GatewayCoreType;
-import com.dyy.tsp.redis.enumtype.LibraryType;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import io.netty.channel.Channel;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -37,6 +34,8 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
     private DebugHandler debugHandler;
     @Autowired
     private RedisHandler redisHandler;
+    @Autowired
+    private CaffeineCache caffeineCache;
 
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
@@ -44,7 +43,7 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
         if(gatewayCoreType.getHandler()!=null && gatewayCoreType!=null){
             debugHandler.debugger(protocol);
             String key = HelperKeyUtil.getKey(protocol.getVin());
-            VehicleCache vehicleCache = this.findVehicleCache(key);
+            VehicleCache vehicleCache = caffeineCache.get(key);
             CommandType commandType = protocol.getCommandType();
             //平台登入/登出,VIN规则不一样,不做校验
             if(!(commandType == CommandType.PLATFORM_LOGIN || commandType == CommandType.PLATFORM_LOGOUT)){
@@ -59,25 +58,6 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
                 handler.doBusiness(protocol,channel);
             }
         }
-    }
-
-    /**
-     * 二级缓存,减少对Redis的压力
-     * @param key
-     * @return
-     */
-    private VehicleCache findVehicleCache(String key) {
-        VehicleCache vehicleCache = CommonCache.vehicleCacheMap.get(key);
-        if(vehicleCache!=null){
-            return vehicleCache;
-        }
-        String cacheData = redisHandler.getAsyn(LibraryType.SING_AND_TOKEN,key);
-        if(StringUtils.isBlank(cacheData)){
-            return null;
-        }
-        vehicleCache = JSONObject.parseObject(cacheData,VehicleCache.class);
-        CommonCache.vehicleCacheMap.put(key,vehicleCache);
-        return vehicleCache;
     }
 
     @Override
