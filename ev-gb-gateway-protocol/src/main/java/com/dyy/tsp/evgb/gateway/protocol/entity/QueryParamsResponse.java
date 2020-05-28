@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,9 +26,11 @@ public class QueryParamsResponse implements IStatus {
     private Params params;
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private BeanTime beanTimeProducer = new BeanTime();
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private Params paramsProducer = new Params();
 
     @Override

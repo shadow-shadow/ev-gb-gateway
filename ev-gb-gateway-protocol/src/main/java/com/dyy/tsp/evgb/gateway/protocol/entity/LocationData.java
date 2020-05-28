@@ -5,6 +5,7 @@ import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.*;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,12 +23,15 @@ public class LocationData implements IStatus {
     @ApiModelProperty(value = "定位状态 解析出是否有效定位 经纬度类型", example = "0")
     private Short status;
 
+    @JsonIgnore
     @ApiModelProperty(value = "是否有效定位")
     private Boolean valid;
 
+    @JsonIgnore
     @ApiModelProperty(value = "经度类型")
     private LongitudeType longitudeType;
 
+    @JsonIgnore
     @ApiModelProperty(value = "纬度类型")
     private LatitudeType latitudeType;
 

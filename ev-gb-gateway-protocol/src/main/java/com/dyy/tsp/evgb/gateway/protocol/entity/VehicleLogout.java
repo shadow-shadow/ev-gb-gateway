@@ -1,7 +1,9 @@
 package com.dyy.tsp.evgb.gateway.protocol.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +18,8 @@ import java.nio.ByteOrder;
 @Data
 public class VehicleLogout implements IStatus {
 
+    @JSONField(serialize = false)
+    @JsonIgnore
     private static final BeanTime producer = new BeanTime();
 
     @ApiModelProperty(value = "车辆登出时间")

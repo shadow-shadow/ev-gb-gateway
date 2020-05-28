@@ -34,9 +34,6 @@ public class EvGBProperties {
     //dispatcher处理
     private String dispatcherTopic = "dyy_dispatcher_data";
 
-    //转发国标/地标
-    private String evgbTopic = "dyy_evgb_data";
-
     //是否开始消息投递回调
     private Boolean callBackFlag = Boolean.FALSE;
 

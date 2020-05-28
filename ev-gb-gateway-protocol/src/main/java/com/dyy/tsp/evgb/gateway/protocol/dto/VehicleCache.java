@@ -1,4 +1,4 @@
-package com.dyy.tsp.evgb.gateway.protocol.entity;
+package com.dyy.tsp.evgb.gateway.protocol.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

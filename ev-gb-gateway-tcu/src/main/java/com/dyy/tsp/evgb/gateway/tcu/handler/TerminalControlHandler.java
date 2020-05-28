@@ -24,9 +24,7 @@ public class TerminalControlHandler extends AbstractBusinessHandler {
         protrocol.setBody(new DataBody(terminalControlRequest.getBeanTime().encode()));
         protrocol.setResponseType(ResponseType.SUCCESS);
         channel.writeAndFlush(protrocol.encode());
-        if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} {} {} 响应{}",protrocol.getVin(),terminalControlRequest.getBeanTime().toTimestamp(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
-        }
+        LOGGER.debug("{} {} {} 响应{}",protrocol.getVin(),terminalControlRequest.getBeanTime().toTimestamp(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
     }
 
 }

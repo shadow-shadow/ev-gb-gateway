@@ -1,6 +1,7 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownResponse;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.server.config.EvGBProperties;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -34,9 +35,8 @@ public class ForwardHandler {
      * 转发数据到远控服务
      * TODO
      */
-    public void sendToRemoteResponse(){
-        //TODO
-        send(evGBProperties.getCommandResponseTopic(),"message");
+    public void sendToRemoteResponse(CommandDownResponse commandDownResponse){
+        this.send(evGBProperties.getCommandResponseTopic(),JSONObject.toJSONString(commandDownResponse));
     }
 
     /**
@@ -45,8 +45,7 @@ public class ForwardHandler {
      */
     public void sendToDebug(EvGBProtocol protocol){
         protocol.setGatewayForwardTime(Instant.now().toEpochMilli());
-        String message = JSONObject.toJSONString(protocol);
-        send(evGBProperties.getDebugTopic(),message);
+        this.send(evGBProperties.getDebugTopic(),JSONObject.toJSONString(protocol));
     }
 
     /**
@@ -55,14 +54,11 @@ public class ForwardHandler {
      */
     public void sendToDispatcher(EvGBProtocol protocol){
         protocol.setGatewayForwardTime(Instant.now().toEpochMilli());
-        String message = JSONObject.toJSONString(protocol);
-        send(evGBProperties.getDispatcherTopic(),message);
+        this.send(evGBProperties.getDispatcherTopic(),JSONObject.toJSONString(protocol));
     }
 
     private void send(String topic,String message){
-        if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("send {} {}",topic,message);
-        }
+        LOGGER.debug("send {} {}",topic,message);
         if(!evGBProperties.getCallBackFlag()){
             kafkaTemplate.send(topic,message);
         }else{

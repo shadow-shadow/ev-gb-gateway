@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,6 +58,7 @@ public class TerminalControlType implements IStatus {
     private String warnHexString;
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private static byte separator = 0x3B;
 
     @Override
@@ -149,7 +151,7 @@ public class TerminalControlType implements IStatus {
                 buffer.writeByte(separator);
                 //地址
                 if(StringUtils.isNotBlank(host)){
-                    List<String> values = Arrays.asList(host.split("."));
+                    List<String> values = Arrays.asList(host.split("\\."));
                     if(values.size()!=4){
                         throw new BusinessException("TerminalControlType ip format error");
                     }

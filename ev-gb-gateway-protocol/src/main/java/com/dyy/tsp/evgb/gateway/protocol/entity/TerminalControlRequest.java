@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +24,11 @@ public class TerminalControlRequest implements IStatus {
     private TerminalControlType terminalControlType;
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private TerminalControlType terminalControlTypeProducer = new TerminalControlType();
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private BeanTime timeProducer = new BeanTime();
 
     @Override

@@ -1,8 +1,10 @@
 package com.dyy.tsp.evgb.gateway.protocol.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.RealTimeDataType;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,6 +25,8 @@ public class RealTimeData implements IStatus {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeData.class);
 
+    @JSONField(serialize = false)
+    @JsonIgnore
     private static final BeanTime producer = new BeanTime();
 
     @ApiModelProperty(value = "数据采集时间")

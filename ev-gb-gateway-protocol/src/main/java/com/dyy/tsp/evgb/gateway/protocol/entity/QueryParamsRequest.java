@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.netty.common.IStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +21,7 @@ import java.util.List;
 public class QueryParamsRequest implements IStatus {
 
     @ApiModelProperty(value = "查询参数请求时间")
+    @JsonIgnore
     private BeanTime beanTime;
 
     @ApiModelProperty(value = "查询参数总数", example = "16")
@@ -29,6 +31,7 @@ public class QueryParamsRequest implements IStatus {
     private List<Short> ids;
 
     @JSONField(serialize = false)
+    @JsonIgnore
     private BeanTime producer = new BeanTime();
 
     @Override
@@ -38,7 +41,7 @@ public class QueryParamsRequest implements IStatus {
         queryParamsRequest.setCount(byteBuf.readUnsignedByte());
         if(queryParamsRequest.getCount()>0){
             List<Short> ids = new ArrayList<>();
-            for (int i = 0; i < this.getCount(); i++) {
+            for (int i = 0; i < queryParamsRequest.getCount(); i++) {
                 ids.add(byteBuf.readUnsignedByte());
             }
             queryParamsRequest.setIds(ids);

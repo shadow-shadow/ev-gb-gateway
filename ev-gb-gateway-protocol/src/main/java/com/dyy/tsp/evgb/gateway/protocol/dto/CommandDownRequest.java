@@ -1,12 +1,15 @@
-package com.dyy.tsp.evgb.gateway.protocol.entity;
+package com.dyy.tsp.evgb.gateway.protocol.dto;
 
+import com.dyy.tsp.evgb.gateway.protocol.entity.QueryParamsRequest;
+import com.dyy.tsp.evgb.gateway.protocol.entity.SetParamsRequest;
+import com.dyy.tsp.evgb.gateway.protocol.entity.TerminalControlType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandDownHelperType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import java.util.List;
 
 /**
- * 指令下发请求
+ * 远程控制服务与网关指令下发交互对象
+ * created by dyy
  */
 @SuppressWarnings("all")
 @Data
@@ -21,19 +24,17 @@ public class CommandDownRequest {
     @ApiModelProperty(value = "指令请求时间", example = "1590478622000")
     private Long time;
 
-    @ApiModelProperty(value = "指令请求流水号", example = "1")
-    private Integer serialNum;
+    @ApiModelProperty(value = "当为车载终端控制时请求参数")
+    private TerminalControlType terminalControlType;
 
-    @ApiModelProperty(value = "查询/设置参数总数", example = "16")
-    private Short count;
+    @ApiModelProperty(value = "当为查询参数指令时请求参数")
+    private QueryParamsRequest queryParamsRequest;
 
-    @ApiModelProperty(value = "查询参数ID集合")
-    private List<Short> ids;
-
-    @ApiModelProperty(value = "设置参数信息")
-    private Params params;
+    @ApiModelProperty(value = "当为设置参数指令时请求参数")
+    private SetParamsRequest setParamsRequest;
 
     public CommandDownRequest() {
+
     }
 
     public CommandDownRequest(String vin, CommandDownHelperType command) {

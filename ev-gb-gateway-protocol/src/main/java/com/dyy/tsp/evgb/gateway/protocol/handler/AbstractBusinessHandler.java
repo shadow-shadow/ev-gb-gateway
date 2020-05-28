@@ -56,9 +56,7 @@ public abstract class AbstractBusinessHandler implements IHandler {
         channel.eventLoop().execute(()->{
             channel.writeAndFlush(responseBuf);
         });
-        if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
-        }
+        LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
     }
 
     /**
@@ -80,8 +78,6 @@ public abstract class AbstractBusinessHandler implements IHandler {
         channel.eventLoop().execute(()->{
             channel.writeAndFlush(responseBuf);
         });
-        if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
-        }
+        LOGGER.debug("{} {} 响应{} {}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc(),hex);
     }
 }

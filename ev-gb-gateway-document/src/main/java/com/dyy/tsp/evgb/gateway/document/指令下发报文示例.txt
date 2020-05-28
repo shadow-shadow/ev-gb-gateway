@@ -12,10 +12,12 @@
 查询参数
 {
   "command": "QUERY_COMMAND",
-  "count": 16,
-  "ids": [
-    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
-  ],
+  "queryParamsRequest": {
+    "count": 16,
+    "ids": [
+      1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+    ]
+  },
   "time": 1590478622000,
   "vin": "LSFGHHH0123456789"
 }
@@ -23,25 +25,74 @@
 设置参数   T盒的硬件版本号/固件版本号不允许设置
 {
   "command": "SET_COMMAND",
-  "count": 14,
-  "params": {
-    "alarmInformationReportingCycle": 1,
-    "commonPlatformHost": "www.baidu.com",
-    "commonPlatformHostLength": 13,
-    "commonPlatformPort": 80,
-    "heartbeatSendingCycle": 1,
-    "informationReportingCycle": 1,
-    "localStorageTimeCycleOfVehicleTerminal": 1,
-    "loginTimeInterval": 3,
-    "remoteServiceManagementPlatformHost": "www.baidu.com",
-    "remoteServiceManagementPlatformHostLength": 13,
-    "remoteServiceManagementPlatformPort": 80,
-    "tboxResponseTimeOut": 5,
-    "tspResponseTimeOut": 6,
-    "underSamplingMonitoring": 2
+  "setParamsRequest": {
+    "count": 16,
+    "params": {
+      "alarmInformationReportingCycle": 1,
+      "commonPlatformHost": "www.baidu.com",
+      "commonPlatformHostLength": 13,
+      "commonPlatformPort": 80,
+      "hardwareVersion": 12345,
+      "heartbeatSendingCycle": 1,
+      "informationReportingCycle": 1,
+      "localStorageTimeCycleOfVehicleTerminal": 1,
+      "loginTimeInterval": 3,
+      "remoteServiceManagementPlatformHost": "www.baidu.com",
+      "remoteServiceManagementPlatformHostLength": 13,
+      "remoteServiceManagementPlatformPort": 80,
+      "softwareVersion": 12345,
+      "tboxResponseTimeOut": 5,
+      "tspResponseTimeOut": 6,
+      "underSamplingMonitoring": 2
+    }
   },
   "time": 1590478622000,
   "vin": "LSFGHHH0123456789"
 }
 
-车载终端控制 TODO
+车载终端控制 根据指令控制ID的不同terminalControlType参数不同
+-- 1 远程升级 参数如下:
+{
+  "command": "REMOTE_CONTROL",
+  "terminalControlType": {
+    "dialPassword": "拨号密码",
+    "dialPointName": "拨号点名称",
+    "dialUserName": "拨号用户名",
+    "hardwareVersion": 12345,
+    "host": "127.0.0.1",
+    "id": 1,
+    "manufacturersId": 1234,
+    "port": 8111,
+    "softwareVersion": 12345,
+    "upgradeConnectServerTimeOut": 10,
+    "upgradeURL": "www.baidu.com"
+  },
+  "time": 1590478622000,
+  "vin": "LSFGHHH0123456789"
+}
+
+--6 车载终端报警/预警  参数如下:
+{
+  "command": "REMOTE_CONTROL",
+  "terminalControlType": {
+    "warnHexString": "01010101",
+    "warnLevel": 1,
+    "id": 6
+  },
+  "time": 1590478622000,
+  "vin": "LSFGHHH0123456789"
+}
+
+--2 车载终端关机
+--3 车载终端复位
+--4 车载终端恢复出厂设置
+--5 断开通讯链路
+--7 开启抽样监测链路
+{
+  "command": "REMOTE_CONTROL",
+  "terminalControlType": {
+    "id": 2
+  },
+  "time": 1590478622000,
+  "vin": "LSFGHHH0123456789"
+}

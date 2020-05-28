@@ -1,7 +1,7 @@
 package com.dyy.tsp.evgb.gateway.tcu.websocket;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dyy.tsp.evgb.gateway.protocol.entity.CommandDownRequest;
+import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownRequest;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandDownHelperType;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import com.dyy.tsp.websocket.handler.AbstractWebSocketHandler;

@@ -1,6 +1,12 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
+import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownResponse;
+import com.dyy.tsp.evgb.gateway.protocol.entity.BeanTime;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
+import com.dyy.tsp.evgb.gateway.protocol.entity.PlatformLogout;
+import com.dyy.tsp.evgb.gateway.protocol.entity.QueryParamsResponse;
+import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandDownHelperType;
+import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +43,14 @@ public class ParamsHandler extends AbstractBusinessHandler {
      * @param protrocol
      */
     private void doSetResponse(EvGBProtocol protrocol) {
-        //TODO 转发查询参数响应结果
+        BeanTime beanTime = (BeanTime)protrocol.getBody().getJson().toJavaObject(BeanTime.class);
+        CommandDownResponse commandDownResponse = new CommandDownResponse();
+        commandDownResponse.setReuqestTime(beanTime.toTimestamp());
+        commandDownResponse.setResponseType(protrocol.getResponseType());
+        commandDownResponse.setVin(protrocol.getVin());
+        commandDownResponse.setCommand(CommandDownHelperType.valuesOf(protrocol.getCommandType().name()));
+        commandDownResponse.setResponseTime(protrocol.getGatewayReceiveTime());
+        forwardHandler.sendToRemoteResponse(commandDownResponse);
     }
 
     /**
@@ -45,7 +58,15 @@ public class ParamsHandler extends AbstractBusinessHandler {
      * @param protrocol
      */
     private void doQueryResponse(EvGBProtocol protrocol) {
-        //TODO 转发设置参数响应结果
+        QueryParamsResponse queryParamsResponse = (QueryParamsResponse)protrocol.getBody().getJson().toJavaObject(QueryParamsResponse.class);
+        CommandDownResponse commandDownResponse = new CommandDownResponse();
+        commandDownResponse.setReuqestTime(queryParamsResponse.getBeanTime().toTimestamp());
+        commandDownResponse.setResponseType(protrocol.getResponseType());
+        commandDownResponse.setQueryParamsResponse(queryParamsResponse);
+        commandDownResponse.setVin(protrocol.getVin());
+        commandDownResponse.setCommand(CommandDownHelperType.valuesOf(protrocol.getCommandType().name()));
+        commandDownResponse.setResponseTime(protrocol.getGatewayReceiveTime());
+        forwardHandler.sendToRemoteResponse(commandDownResponse);
     }
 
 }

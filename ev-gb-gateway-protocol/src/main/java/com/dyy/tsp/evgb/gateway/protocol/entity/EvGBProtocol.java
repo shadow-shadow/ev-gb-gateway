@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
+import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.EncryptionType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;

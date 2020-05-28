@@ -1,9 +1,8 @@
 package com.dyy.tsp.evgb.gateway.protocol.common;
 
-import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
-import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleCache;
+import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import io.netty.channel.Channel;
-import java.util.List;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -15,6 +15,15 @@ public enum CommandDownHelperType {
         this.desc = desc;
     }
 
+    public static CommandDownHelperType valuesOf(String name) {
+        for (CommandDownHelperType enums : CommandDownHelperType.values()) {
+            if (enums.name().equals(name)) {
+                return enums;
+            }
+        }
+        return null;
+    }
+
     public String getDesc() {
         return desc;
     }

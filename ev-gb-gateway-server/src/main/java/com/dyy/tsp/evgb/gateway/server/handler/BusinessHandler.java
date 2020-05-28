@@ -3,7 +3,7 @@ package com.dyy.tsp.evgb.gateway.server.handler;
 import com.alibaba.fastjson.JSONObject;
 import com.dyy.tsp.evgb.gateway.protocol.common.CommonCache;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
-import com.dyy.tsp.evgb.gateway.protocol.entity.VehicleCache;
+import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.handler.IHandler;

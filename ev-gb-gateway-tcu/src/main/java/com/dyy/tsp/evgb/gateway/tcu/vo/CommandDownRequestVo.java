@@ -1,6 +1,6 @@
 package com.dyy.tsp.evgb.gateway.tcu.vo;
 
-import com.dyy.tsp.evgb.gateway.protocol.entity.CommandDownRequest;
+import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownRequest;
 import lombok.Data;
 
 @Data

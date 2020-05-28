@@ -58,9 +58,7 @@ public class ParamsHandler extends AbstractBusinessHandler {
             protrocol.setBody(null);
         }
         channel.writeAndFlush(protrocol.encode());
-        if(LOGGER.isDebugEnabled()){
-            LOGGER.debug("{} response {}",protrocol.getVin(),protrocol.getCommandType().getDesc());
-        }
+        LOGGER.debug("{} {} 响应{}",protrocol.getVin(),protrocol.getCommandType().getDesc(),protrocol.getResponseType().getDesc());
     }
 
 }
