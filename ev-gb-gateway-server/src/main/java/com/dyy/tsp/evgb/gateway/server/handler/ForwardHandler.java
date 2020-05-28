@@ -33,7 +33,7 @@ public class ForwardHandler {
 
     /**
      * 转发数据到远控服务
-     * TODO
+     * @param commandDownResponse
      */
     public void sendToRemoteResponse(CommandDownResponse commandDownResponse){
         this.send(evGBProperties.getCommandResponseTopic(),JSONObject.toJSONString(commandDownResponse));

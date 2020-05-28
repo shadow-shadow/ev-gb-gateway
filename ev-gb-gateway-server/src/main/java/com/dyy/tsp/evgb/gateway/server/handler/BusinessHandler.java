@@ -49,6 +49,7 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
             if(!(commandType == CommandType.PLATFORM_LOGIN || commandType == CommandType.PLATFORM_LOGOUT)){
                 if(vehicleCache == null){
                     LOGGER.warn("{} is not platform vehicle",protocol.getVin());
+                    channel.close();
                     return;
                 }
             }
