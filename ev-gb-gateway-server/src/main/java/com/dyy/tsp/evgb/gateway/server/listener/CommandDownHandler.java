@@ -60,7 +60,7 @@ public class CommandDownHandler {
                     CommonCache.debugVinMap.remove(request.getVin());
                     LOGGER.debug("{} webSocket console close",request.getVin());
                 }else{
-                    LOGGER.warn("Gateway is not open onlineMonitoring,Please modify the nacos configuration");
+                    LOGGER.debug("Gateway is not open onlineMonitoring");
                 }
                 break;
             case CLEAR_CAHCE:
