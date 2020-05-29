@@ -1,5 +1,6 @@
 package com.dyy.tsp.evgb.gateway.server.handler;
 
+import com.dyy.tsp.evgb.gateway.protocol.dto.ProblemVehicle;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.protocol.dto.VehicleCache;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
@@ -31,6 +32,8 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
     private ApplicationContext applicationContext;
 
     @Autowired
+    private ForwardHandler forwardHandler;
+    @Autowired
     private DebugHandler debugHandler;
     @Autowired
     private RedisHandler redisHandler;
@@ -48,7 +51,9 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
             //平台登入/登出,VIN规则不一样,不做校验
             if(!(commandType == CommandType.PLATFORM_LOGIN || commandType == CommandType.PLATFORM_LOGOUT)){
                 if(vehicleCache == null){
-                    LOGGER.warn("{} is not platform vehicle",protocol.getVin());
+                    String vin = protocol.getVin();
+                    LOGGER.warn("{} is not platform vehicle",vin);
+                    forwardHandler.sendToVehicle(new ProblemVehicle(vin,protocol.getGatewayReceiveTime(),protocol.getCommandType()));
                     channel.close();
                     return;
                 }

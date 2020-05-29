@@ -19,20 +19,23 @@ public class EvGBProperties {
     //三次握手队列最大长度
     private Integer soBackLog = 4096;
 
-    //三次握手队列最大长度
+    //work工作线程组线程数
     private Integer workLoopCount = 4;
 
-    //指令下发请求
+    //指令下发请求  远控服务请求消息发布通道
     private String commandRequestTopic = "dyy_command_request_data";
 
-    //指令下发响应
+    //指令下发响应  网关拿到终端响应后通知远程控制服务处理
     private String commandResponseTopic = "dyy_command_response_data";
 
     //在线监控
     private String debugTopic = "dyy_debug_data";
 
-    //dispatcher处理
+    //dispatcher处理 网关解耦消息到kafka,由Dispatcher适配车辆中心业务
     private String dispatcherTopic = "dyy_dispatcher_data";
+
+    //缓存问题车辆处理 网关通知Vehicle服务确认
+    private String problemVehicleTopic = "dyy_problem_vehicle_data";
 
     //是否开始消息投递回调
     private Boolean callBackFlag = Boolean.FALSE;

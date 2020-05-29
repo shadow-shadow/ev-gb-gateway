@@ -2,6 +2,7 @@ package com.dyy.tsp.evgb.gateway.server.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dyy.tsp.evgb.gateway.protocol.dto.CommandDownResponse;
+import com.dyy.tsp.evgb.gateway.protocol.dto.ProblemVehicle;
 import com.dyy.tsp.evgb.gateway.protocol.entity.EvGBProtocol;
 import com.dyy.tsp.evgb.gateway.server.config.EvGBProperties;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -30,6 +31,14 @@ public class ForwardHandler {
 
     @Autowired
     private EvGBProperties evGBProperties;
+
+    /**
+     * 转发问题车辆到车辆基础服务
+     * @param problemVehicle
+     */
+    public void sendToVehicle(ProblemVehicle problemVehicle){
+        this.send(evGBProperties.getProblemVehicleTopic(),JSONObject.toJSONString(problemVehicle));
+    }
 
     /**
      * 转发数据到远控服务
