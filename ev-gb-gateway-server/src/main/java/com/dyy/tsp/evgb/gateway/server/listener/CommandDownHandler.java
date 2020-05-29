@@ -8,6 +8,7 @@ import com.dyy.tsp.evgb.gateway.protocol.entity.*;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
 import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
+import com.dyy.tsp.evgb.gateway.server.config.EvGBProperties;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -27,6 +28,8 @@ public class CommandDownHandler {
 
     @Autowired
     private CaffeineCache caffeineCache;
+    @Autowired
+    private EvGBProperties evGBProperties;
 
     /**
      * 远程控制指令下发
@@ -45,12 +48,20 @@ public class CommandDownHandler {
                 this.doParamsRequest(request);
                 break;
             case OPEN_DEBUG:
-                CommonCache.debugVinMap.put(request.getVin(),request.getCommand().name());
-                LOGGER.debug("{} webSocket console open",request.getVin());
+                if(evGBProperties.getOnlineMonitoringFlag()){
+                    CommonCache.debugVinMap.put(request.getVin(),request.getCommand().name());
+                    LOGGER.debug("{} webSocket console open",request.getVin());
+                }else{
+                    LOGGER.warn("Gateway is not open onlineMonitoring,Please modify the nacos configuration");
+                }
                 break;
             case CLOSE_DEBUG:
-                CommonCache.debugVinMap.remove(request.getVin());
-                LOGGER.debug("{} webSocket console close",request.getVin());
+                if(evGBProperties.getOnlineMonitoringFlag()){
+                    CommonCache.debugVinMap.remove(request.getVin());
+                    LOGGER.debug("{} webSocket console close",request.getVin());
+                }else{
+                    LOGGER.warn("Gateway is not open onlineMonitoring,Please modify the nacos configuration");
+                }
                 break;
             case CLEAR_CAHCE:
                 caffeineCache.remove(HelperKeyUtil.getKey(request.getVin()));

@@ -37,8 +37,11 @@ public class EvGBProperties {
     //缓存问题车辆处理 网关通知Vehicle服务确认
     private String problemVehicleTopic = "dyy_problem_vehicle_data";
 
-    //是否开始消息投递回调
+    //是否开始消息投递回调  通过修改Nacos配置即可动态控制
     private Boolean callBackFlag = Boolean.FALSE;
+
+    //是否开启在线监控  通过修改Nacos配置即可动态控制
+    private Boolean onlineMonitoringFlag = Boolean.FALSE;
 
     //协议配置
     private Integer maxFrameLength = 65556;

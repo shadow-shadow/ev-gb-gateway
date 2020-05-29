@@ -8,6 +8,7 @@ import com.dyy.tsp.evgb.gateway.protocol.handler.AbstractBusinessHandler;
 import com.dyy.tsp.evgb.gateway.protocol.handler.IHandler;
 import com.dyy.tsp.evgb.gateway.protocol.util.HelperKeyUtil;
 import com.dyy.tsp.evgb.gateway.server.cache.CaffeineCache;
+import com.dyy.tsp.evgb.gateway.server.config.EvGBProperties;
 import com.dyy.tsp.evgb.gateway.server.enumtype.GatewayCoreType;
 import com.dyy.tsp.redis.handler.RedisHandler;
 import io.netty.channel.Channel;
@@ -39,12 +40,18 @@ public class BusinessHandler extends AbstractBusinessHandler implements Applicat
     private RedisHandler redisHandler;
     @Autowired
     private CaffeineCache caffeineCache;
+    @Autowired
+    private EvGBProperties evGBProperties;
 
     @Override
     public void doBusiness(EvGBProtocol protocol, Channel channel) {
+        //是否开启在线监控
+        if(evGBProperties.getOnlineMonitoringFlag()){
+            debugHandler.debugger(protocol);
+        }
+        //正常业务处理
         GatewayCoreType gatewayCoreType = GatewayCoreType.valuesOf(protocol.getCommandType().getId());
         if(gatewayCoreType.getHandler()!=null && gatewayCoreType!=null){
-            debugHandler.debugger(protocol);
             String key = HelperKeyUtil.getKey(protocol.getVin());
             VehicleCache vehicleCache = caffeineCache.get(key);
             CommandType commandType = protocol.getCommandType();
