@@ -44,19 +44,19 @@
 
     <repositories>
         <repository>
-            <id>my-releases</id>
-            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+            <id>nexus-releases</id>
+            <url>http://nexus:8081/repository/maven-releases/</url>
         </repository>
     </repositories>
 
     <distributionManagement>
         <repository>
-            <id>my-releases</id>
-            <url>http://127.0.0.1:8081/repository/maven-releases</url>
+            <id>nexus-releases</id>
+            <url>http://nexus:8081/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
-            <id>my_snapshots</id>
-            <url>http://127.0.0.1:8081/repository/maven-snapshots</url>
+            <id>nexus_snapshots</id>
+            <url>http://nexus:8081/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
