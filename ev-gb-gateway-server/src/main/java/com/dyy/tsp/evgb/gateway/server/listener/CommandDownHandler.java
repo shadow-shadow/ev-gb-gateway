@@ -147,7 +147,7 @@ public class CommandDownHandler {
      * @return
      */
     private Channel getChannel(String vin){
-        return CommonCache.vinChannelMap.get(vin);
+        return CommonCache.getVinChannelMap(vin).get(vin);
     }
 
 }

@@ -50,9 +50,9 @@ public class EvGBNettyHandler extends AbstractNettyHandler {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception{
         Channel channel = ctx.channel();
-        String vin = CommonCache.channelVinMap.remove(channel);
+        String vin = CommonCache.getChannelVinMap(channel).remove(channel);
         if(StringUtils.isNotBlank(vin)){
-            CommonCache.vinChannelMap.remove(vin);
+            CommonCache.getVinChannelMap(vin).remove(vin);
             caffeineCache.remove(HelperKeyUtil.getKey(vin));
         }
         super.channelInactive(ctx);

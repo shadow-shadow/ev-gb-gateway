@@ -58,16 +58,17 @@ public class VehicleHandler extends AbstractBusinessHandler {
      * @param channel
      */
     private void doVehicleLogin(EvGBProtocol protrocol, Channel channel) {
+        String vin = protrocol.getVin();
         VehicleLogin vehicleLogin = (VehicleLogin)protrocol.getBody().getJson().toJavaObject(VehicleLogin.class);
         VehicleCache vehicleCache = protrocol.getVehicleCache();
-        String redisKey = HelperKeyUtil.getKey(protrocol.getVin());
+        String redisKey = HelperKeyUtil.getKey(vin);
         vehicleCache.setLastLoginTime(vehicleLogin.getBeanTime().formatTime());
         vehicleCache.setLastLoginSerialNum(vehicleLogin.getSerialNum());
         vehicleCache.setLogin(Boolean.TRUE);
         redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
         caffeineCache.getVehicleCacheMap().put(redisKey,vehicleCache);
-        CommonCache.vinChannelMap.put(protrocol.getVin(),channel);
-        CommonCache.channelVinMap.put(channel,protrocol.getVin());
+        CommonCache.getVinChannelMap(vin).put(vin,channel);
+        CommonCache.getChannelVinMap(channel).put(channel,vin);
         forwardHandler.sendToDispatcher(protrocol);
         doCommonResponse(ResponseType.SUCCESS,protrocol,vehicleLogin.getBeanTime(),channel);
     }
@@ -78,16 +79,17 @@ public class VehicleHandler extends AbstractBusinessHandler {
      * @param channel
      */
     private void doVehicleLogout(EvGBProtocol protrocol, Channel channel) {
+        String vin = protrocol.getVin();
         VehicleLogout vehicleLogout = (VehicleLogout)protrocol.getBody().getJson().toJavaObject(VehicleLogout.class);
         VehicleCache vehicleCache = protrocol.getVehicleCache();
-        String redisKey = HelperKeyUtil.getKey(protrocol.getVin());
+        String redisKey = HelperKeyUtil.getKey(vin);
         vehicleCache.setLastLogoutTime(vehicleLogout.getBeanTime().formatTime());
         vehicleCache.setLastLogoutSerialNum(vehicleLogout.getSerialNum());
         vehicleCache.setLogin(Boolean.FALSE);
         redisHandler.setAsyn(LibraryType.SING_AND_TOKEN,redisKey,JSONObject.toJSONString(vehicleCache));
         caffeineCache.remove(redisKey);
-        CommonCache.vinChannelMap.remove(protrocol.getVin());
-        CommonCache.channelVinMap.remove(channel);
+        CommonCache.getVinChannelMap(vin).remove(vin);
+        CommonCache.getChannelVinMap(channel).remove(channel);
         forwardHandler.sendToDispatcher(protrocol);
         doCommonResponse(ResponseType.SUCCESS,protrocol,vehicleLogout.getBeanTime(),channel);
     }
