@@ -3,7 +3,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
@@ -47,7 +47,7 @@ public class SubsystemTemperatureData implements IStatus {
 
     @Override
     public ByteBuf encode() throws BusinessException {
-        ByteBuf buffer = Unpooled.buffer();
+        ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeByte(num);
         buffer.writeShort(temperatureProbeCount);

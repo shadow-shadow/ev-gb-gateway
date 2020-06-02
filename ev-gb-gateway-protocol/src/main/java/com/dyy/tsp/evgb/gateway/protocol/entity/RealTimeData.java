@@ -6,7 +6,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.RealTimeDataType;
 import com.dyy.tsp.netty.common.IStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -81,7 +81,7 @@ public class RealTimeData implements IStatus {
 
     @Override
     public ByteBuf encode() throws BusinessException {
-        ByteBuf buffer = Unpooled.buffer();
+        ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeBytes(beanTime.encode());
         if (vehicleData != null) {

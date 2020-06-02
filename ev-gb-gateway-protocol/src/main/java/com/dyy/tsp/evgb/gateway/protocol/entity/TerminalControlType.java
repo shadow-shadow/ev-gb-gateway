@@ -6,7 +6,7 @@ import com.dyy.tsp.common.util.ByteUtil;
 import com.dyy.tsp.netty.common.IStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -129,7 +129,7 @@ public class TerminalControlType implements IStatus {
 
     @Override
     public ByteBuf encode() {
-        ByteBuf buffer = Unpooled.buffer();
+        ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeByte(id);
         switch (id){

@@ -10,7 +10,7 @@ import com.dyy.tsp.evgb.gateway.protocol.entity.*;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.CommandType;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -59,7 +59,7 @@ public class BusinessHandler implements IAction, IFocus {
                 }
                 log.debug("PARSE HEX [{}]",hex);
                 hex = hex.replaceAll(" ","");
-                ByteBuf buffer = Unpooled.buffer();
+                ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
                 buffer.writeBytes(ByteUtil.hexStringToBytes(hex));
                 EvGBProtocol protocol = null;
                 try{

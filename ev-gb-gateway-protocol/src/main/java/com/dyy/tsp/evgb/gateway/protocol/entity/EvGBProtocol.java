@@ -10,7 +10,7 @@ import com.dyy.tsp.evgb.gateway.protocol.enumtype.EncryptionType;
 import com.dyy.tsp.evgb.gateway.protocol.enumtype.ResponseType;
 import com.dyy.tsp.netty.common.IProtocol;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
@@ -71,7 +71,7 @@ public class EvGBProtocol implements IProtocol {
         if(vin.length()!=17){
             throw new BusinessException("vin length must be 17");
         }
-        ByteBuf bccBuffer = Unpooled.buffer();
+        ByteBuf bccBuffer = PooledByteBufAllocator.DEFAULT.buffer();
         bccBuffer.order(ByteOrder.BIG_ENDIAN);
         bccBuffer.writeByte(commandType.getId());
         bccBuffer.writeByte(responseType.getId());
@@ -91,7 +91,7 @@ public class EvGBProtocol implements IProtocol {
         }
         byte bcc = signBcc(bccBuffer);
         //组装数据包返回最终编码结果
-        ByteBuf buffer = Unpooled.buffer();
+        ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeBytes(Constants.BEGIN.getBytes(Charset.forName(Constants.UTF_8)));
         buffer.writeBytes(bccBuffer);

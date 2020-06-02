@@ -6,10 +6,9 @@ import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.netty.common.IStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class VehicleLogin implements IStatus {
         if(iccid.length()!=20){
             throw new BusinessException("iccid length must be 20");
         }
-        ByteBuf buffer = Unpooled.buffer();
+        ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeBytes(beanTime.encode());
         buffer.writeShort(serialNum);

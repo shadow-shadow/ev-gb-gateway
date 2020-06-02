@@ -3,7 +3,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.netty.common.IStatus;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.time.Instant;
@@ -109,7 +109,7 @@ public class BeanTime implements IStatus {
 
     @Override
     public ByteBuf encode() throws BusinessException {
-        ByteBuf byteBuf = Unpooled.buffer();
+        ByteBuf byteBuf = PooledByteBufAllocator.DEFAULT.buffer();
         byteBuf.writeByte(year);
         byteBuf.writeByte(month);
         byteBuf.writeByte(day);
