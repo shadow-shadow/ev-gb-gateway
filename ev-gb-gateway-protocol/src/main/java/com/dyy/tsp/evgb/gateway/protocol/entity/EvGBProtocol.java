@@ -14,7 +14,6 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 import java.time.Instant;
 
 /**
@@ -75,7 +74,7 @@ public class EvGBProtocol implements IProtocol {
         bccBuffer.order(ByteOrder.BIG_ENDIAN);
         bccBuffer.writeByte(commandType.getId());
         bccBuffer.writeByte(responseType.getId());
-        bccBuffer.writeBytes(vin.getBytes(Charset.forName(Constants.UTF_8)));
+        bccBuffer.writeBytes(vin.getBytes(Constants.UTF_8));
         bccBuffer.writeByte(encryptionType.getId());
         if(body!=null){
             ByteBuf byteBuf = body.getByteBuf();
@@ -93,7 +92,7 @@ public class EvGBProtocol implements IProtocol {
         //组装数据包返回最终编码结果
         ByteBuf buffer = PooledByteBufAllocator.DEFAULT.buffer();
         buffer.order(ByteOrder.BIG_ENDIAN);
-        buffer.writeBytes(Constants.BEGIN.getBytes(Charset.forName(Constants.UTF_8)));
+        buffer.writeBytes(Constants.BEGIN.getBytes(Constants.UTF_8));
         buffer.writeBytes(bccBuffer);
         buffer.writeByte(bcc);
         return buffer;
@@ -114,11 +113,11 @@ public class EvGBProtocol implements IProtocol {
         byteBuf.resetReaderIndex();
         Boolean checkBcc = EvGBProtocol.checkBcc(byteBuf);
         protocol.setBcc(checkBcc);
-        Boolean checkBegin = Constants.BEGIN.equals(byteBuf.readSlice(2).toString(Charset.forName(Constants.UTF_8)));
+        Boolean checkBegin = Constants.BEGIN.equals(byteBuf.readSlice(2).toString(Constants.UTF_8));
         protocol.setBegin(checkBegin);
         protocol.setCommandType(CommandType.valuesOf(byteBuf.readUnsignedByte()));
         protocol.setResponseType(ResponseType.valuesOf(byteBuf.readUnsignedByte()));
-        protocol.setVin(byteBuf.readSlice(17).toString(Charset.forName(Constants.UTF_8)));
+        protocol.setVin(byteBuf.readSlice(17).toString(Constants.UTF_8));
         protocol.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
         //校验码正确与起始符号正确的时候才解析数据单元
         if(checkBcc && checkBegin){

@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 
 @Data
 @SuppressWarnings("all")
@@ -87,7 +86,7 @@ public class Params implements IStatus {
                 }
                 case 5:{
                     if(params.getRemoteServiceManagementPlatformHostLength()>0){
-                        params.setRemoteServiceManagementPlatformHost(byteBuf.readSlice(params.getRemoteServiceManagementPlatformHostLength()).toString(Charset.forName(Constants.UTF_8)));
+                        params.setRemoteServiceManagementPlatformHost(byteBuf.readSlice(params.getRemoteServiceManagementPlatformHostLength()).toString(Constants.UTF_8));
                     }
                     break;
                 }
@@ -96,11 +95,11 @@ public class Params implements IStatus {
                     break;
                 }
                 case 7:{
-                    params.setHardwareVersion(byteBuf.readSlice(5).toString(Charset.forName(Constants.UTF_8)));
+                    params.setHardwareVersion(byteBuf.readSlice(5).toString(Constants.UTF_8));
                     break;
                 }
                 case 8:{
-                    params.setSoftwareVersion(byteBuf.readSlice(5).toString(Charset.forName(Constants.UTF_8)));
+                    params.setSoftwareVersion(byteBuf.readSlice(5).toString(Constants.UTF_8));
                     break;
                 }
                 case 9:{
@@ -125,7 +124,7 @@ public class Params implements IStatus {
                 }
                 case 14:{
                     if(params.getCommonPlatformHostLength()>0){
-                        params.setCommonPlatformHost(byteBuf.readSlice(params.getCommonPlatformHostLength()).toString(Charset.forName(Constants.UTF_8)));
+                        params.setCommonPlatformHost(byteBuf.readSlice(params.getCommonPlatformHostLength()).toString(Constants.UTF_8));
                     }
                     break;
                 }

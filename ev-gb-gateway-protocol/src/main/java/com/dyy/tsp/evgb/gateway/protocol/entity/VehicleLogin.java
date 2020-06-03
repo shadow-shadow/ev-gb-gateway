@@ -10,7 +10,6 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +49,13 @@ public class VehicleLogin implements IStatus {
         BeanTime beanTime = producer.decode(byteBuf);
         vehicleLogin.setBeanTime(beanTime);
         vehicleLogin.setSerialNum(byteBuf.readUnsignedShort());
-        vehicleLogin.setIccid(byteBuf.readSlice(20).toString(Charset.forName(Constants.UTF_8)));
+        vehicleLogin.setIccid(byteBuf.readSlice(20).toString(Constants.UTF_8));
         vehicleLogin.setCount(byteBuf.readUnsignedByte());
         vehicleLogin.setLength(byteBuf.readUnsignedByte());
         if(vehicleLogin.getCount()>0 && vehicleLogin.getLength()>0){
             List<String> codeList = new ArrayList<>();
             for (int i = 0; i < vehicleLogin.getCount(); i++) {
-                String code = byteBuf.readSlice(vehicleLogin.getLength()).toString(Charset.forName(Constants.UTF_8));
+                String code = byteBuf.readSlice(vehicleLogin.getLength()).toString(Constants.UTF_8);
                 codeList.add(code);
             }
             vehicleLogin.setCodes(codeList);
@@ -73,7 +72,7 @@ public class VehicleLogin implements IStatus {
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeBytes(beanTime.encode());
         buffer.writeShort(serialNum);
-        buffer.writeBytes(iccid.getBytes(Charset.forName(Constants.UTF_8)));
+        buffer.writeBytes(iccid.getBytes(Constants.UTF_8));
         if(codes.isEmpty()){
             buffer.writeByte(0);
             buffer.writeByte(0);
@@ -81,7 +80,7 @@ public class VehicleLogin implements IStatus {
             buffer.writeByte(codes.size());
             buffer.writeByte(codes.get(0).getBytes().length);
             for (String code : codes) {
-                buffer.writeBytes(code.getBytes(Charset.forName(Constants.UTF_8)));
+                buffer.writeBytes(code.getBytes(Constants.UTF_8));
             }
         }
         return buffer;

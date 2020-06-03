@@ -11,7 +11,6 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 
 /**
  * 平台登入
@@ -46,8 +45,8 @@ public class PlatformLogin implements IStatus {
         BeanTime beanTime = producer.decode(byteBuf);
         platformLogin.setBeanTime(beanTime);
         platformLogin.setSerialNum(byteBuf.readUnsignedShort());
-        platformLogin.setUserName(byteBuf.readSlice(12).toString(Charset.forName(Constants.UTF_8)));
-        platformLogin.setPassword(byteBuf.readSlice(20).toString(Charset.forName(Constants.UTF_8)));
+        platformLogin.setUserName(byteBuf.readSlice(12).toString(Constants.UTF_8));
+        platformLogin.setPassword(byteBuf.readSlice(20).toString(Constants.UTF_8));
         platformLogin.setEncryptionType(EncryptionType.valuesOf(byteBuf.readUnsignedByte()));
         return platformLogin;
     }
@@ -64,8 +63,8 @@ public class PlatformLogin implements IStatus {
         buffer.order(ByteOrder.BIG_ENDIAN);
         buffer.writeBytes(beanTime.encode());
         buffer.writeShort(serialNum);
-        buffer.writeBytes(userName.getBytes(Charset.forName(Constants.UTF_8)));
-        buffer.writeBytes(password.getBytes(Charset.forName(Constants.UTF_8)));
+        buffer.writeBytes(userName.getBytes(Constants.UTF_8));
+        buffer.writeBytes(password.getBytes(Constants.UTF_8));
         buffer.writeByte(encryptionType.getId());
         return buffer;
     }
