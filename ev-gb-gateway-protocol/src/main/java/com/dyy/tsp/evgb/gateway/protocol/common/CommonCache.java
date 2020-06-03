@@ -25,7 +25,7 @@ public class CommonCache {
     /**
      * Debug在线监控
      */
-    public static Map<String,String> debugVinMap =new ConcurrentHashMap();
+    public static Map<String,String> debugVinMap = new ConcurrentHashMap<>();
 
     /**
      * 获取VIN与通道对应关系内存集合
@@ -91,16 +91,16 @@ public class CommonCache {
     }
 
     static enum VinChannelMapType{
-        VIN_CHANNEL_MAP_1(1,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_2(2,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_3(3,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_4(4,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_5(5,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_6(6,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_7(7,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_8(8,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_9(9,new ConcurrentHashMap<>(initSize)),
-        VIN_CHANNEL_MAP_10(10,new ConcurrentHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_1(1,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_2(2,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_3(3,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_4(4,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_5(5,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_6(6,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_7(7,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_8(8,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_9(9,new ChannelHashMap<>(initSize)),
+        VIN_CHANNEL_MAP_10(10,new ChannelHashMap<>(initSize)),
         ;
         private Integer index;
         private Map<String, Channel> map;
@@ -129,16 +129,16 @@ public class CommonCache {
     }
 
     static enum ChannelVinMapType{
-        CHANNEL_VIN_MAP_1(1,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_2(2,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_3(3,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_4(4,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_5(5,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_6(6,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_7(7,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_8(8,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_9(9,new ConcurrentHashMap<>(initSize)),
-        CHANNEL_VIN_MAP_10(10,new ConcurrentHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_1(1,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_2(2,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_3(3,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_4(4,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_5(5,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_6(6,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_7(7,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_8(8,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_9(9,new ChannelHashMap<>(initSize)),
+        CHANNEL_VIN_MAP_10(10,new ChannelHashMap<>(initSize)),
         ;
         private Integer index;
         private Map<Channel, String> map;
