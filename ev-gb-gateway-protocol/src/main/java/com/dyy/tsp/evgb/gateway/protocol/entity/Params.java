@@ -163,17 +163,17 @@ public class Params implements IStatus {
             buffer.writeByte(4);
             buffer.writeByte(remoteServiceManagementPlatformHostLength);
             buffer.writeByte(5);
-            buffer.writeBytes(remoteServiceManagementPlatformHost.getBytes());
+            buffer.writeBytes(remoteServiceManagementPlatformHost.getBytes(Constants.UTF_8));
             buffer.writeByte(6);
             buffer.writeShort(remoteServiceManagementPlatformPort);
         }
         if(StringUtils.isNotBlank(hardwareVersion)){
             buffer.writeByte(7);
-            buffer.writeBytes(hardwareVersion.getBytes());
+            buffer.writeBytes(hardwareVersion.getBytes(Constants.UTF_8));
         }
         if(StringUtils.isNotBlank(softwareVersion)){
             buffer.writeByte(8);
-            buffer.writeBytes(softwareVersion.getBytes());
+            buffer.writeBytes(softwareVersion.getBytes(Constants.UTF_8));
         }
         if(heartbeatSendingCycle!=null){
             buffer.writeByte(9);
@@ -195,7 +195,7 @@ public class Params implements IStatus {
             buffer.writeByte(13);
             buffer.writeByte(commonPlatformHostLength);
             buffer.writeByte(14);
-            buffer.writeBytes(commonPlatformHost.getBytes());
+            buffer.writeBytes(commonPlatformHost.getBytes(Constants.UTF_8));
             buffer.writeByte(15);
             buffer.writeShort(commonPlatformPort);
         }

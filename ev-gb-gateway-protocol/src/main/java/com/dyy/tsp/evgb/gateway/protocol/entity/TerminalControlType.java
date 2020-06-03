@@ -3,6 +3,7 @@ package com.dyy.tsp.evgb.gateway.protocol.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dyy.tsp.common.exception.BusinessException;
 import com.dyy.tsp.common.util.ByteUtil;
+import com.dyy.tsp.evgb.gateway.protocol.common.Constants;
 import com.dyy.tsp.netty.common.IStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.buffer.ByteBuf;
@@ -136,17 +137,17 @@ public class TerminalControlType implements IStatus {
             case 1:
                 //拨号点名称
                 if(StringUtils.isNotBlank(dialPointName)){
-                    buffer.writeBytes(dialPointName.getBytes());
+                    buffer.writeBytes(dialPointName.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //拨号用户名
                 if(StringUtils.isNotBlank(dialUserName)){
-                    buffer.writeBytes(dialUserName.getBytes());
+                    buffer.writeBytes(dialUserName.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //拨号密码
                 if(StringUtils.isNotBlank(dialPassword)){
-                    buffer.writeBytes(dialPassword.getBytes());
+                    buffer.writeBytes(dialPassword.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //地址
@@ -170,22 +171,22 @@ public class TerminalControlType implements IStatus {
                 buffer.writeByte(separator);
                 //制造商ID
                 if(StringUtils.isNotBlank(manufacturersId)){
-                    buffer.writeBytes(manufacturersId.getBytes());
+                    buffer.writeBytes(manufacturersId.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //硬件版本
                 if(StringUtils.isNotBlank(hardwareVersion)){
-                    buffer.writeBytes(hardwareVersion.getBytes());
+                    buffer.writeBytes(hardwareVersion.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //固件版本
                 if(StringUtils.isNotBlank(softwareVersion)){
-                    buffer.writeBytes(softwareVersion.getBytes());
+                    buffer.writeBytes(softwareVersion.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //升级URL地址
                 if(StringUtils.isNotBlank(upgradeURL)){
-                    buffer.writeBytes(upgradeURL.getBytes());
+                    buffer.writeBytes(upgradeURL.getBytes(Constants.UTF_8));
                 }
                 buffer.writeByte(separator);
                 //连接到升级服务地址时限

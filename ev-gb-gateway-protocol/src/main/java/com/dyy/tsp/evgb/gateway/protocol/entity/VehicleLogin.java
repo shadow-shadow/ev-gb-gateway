@@ -78,7 +78,7 @@ public class VehicleLogin implements IStatus {
             buffer.writeByte(0);
         }else{
             buffer.writeByte(codes.size());
-            buffer.writeByte(codes.get(0).getBytes().length);
+            buffer.writeByte(codes.get(0).getBytes(Constants.UTF_8).length);
             for (String code : codes) {
                 buffer.writeBytes(code.getBytes(Constants.UTF_8));
             }
